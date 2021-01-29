@@ -66,7 +66,7 @@ public class MainMenuManager : MonoBehaviour
 
         uiManager_MM.UpdateLanguage(indexLanguage);
 
-        if (PlayerPrefs.HasKey("unlockedLevels")) 
+/*        if (PlayerPrefs.HasKey("unlockedLevels")) 
         {
             Debug.Log("Has Key unlockedLevels, value: " + PlayerPrefs.GetInt("unlockedLevels", 0));
             uiManager_MM.UpdadeLevelButtons(PlayerPrefs.GetInt("unlockedLevels", 0));
@@ -74,7 +74,7 @@ public class MainMenuManager : MonoBehaviour
         else
         {
             uiManager_MM.UpdadeLevelButtons(0);
-        }
+        }*/
         
     }
 
