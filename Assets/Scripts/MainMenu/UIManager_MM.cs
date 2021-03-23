@@ -1,13 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager_MM : MonoBehaviour
 {
     private MainMenuManager mainMenuManager;
 
     [SerializeField]
-    private GameObject [] levelButtons;
+    private GameObject panelMoviesMenu;
+
+    [SerializeField]
+    private Text text;
+
+    [SerializeField]
+    private GameObject panelMainMenu;
+
+    [SerializeField]
+    private Button videoButton;
+
+    [SerializeField]
+    private GameObject parentVideoButtonTransform;
+
+    private int rows;
+
+    private int cols;
+
+    [SerializeField]
+    private int testNumberButtons = 6;
+
+    [SerializeField]
+    private GameObject videoPlayer;
 
     private void Awake()
     {
@@ -16,6 +39,50 @@ public class UIManager_MM : MonoBehaviour
 
     private void Start()
     {
+
+
+        /*        string rootPath = Application.persistentDataPath.Substring(0, Application.persistentDataPath.IndexOf("Android", StringComparison.Ordinal));
+                string path = Path.Combine(rootPath, "Movies");
+
+                text.text = Directory.Exists(path).ToString() + " : " + path + "  ;  " + File.Exists(Path.Combine(path, "1.mp4"));
+
+                if (Directory.Exists(Application.persistentDataPath))
+                {
+                    var info = new DirectoryInfo(path);
+                    var fileInfo = info.GetFiles("*.mp4");
+                    //foreach (var file in fileInfo) print(file);
+
+
+
+                    var fileEntries = Directory.GetFiles(path);
+
+                    text.text = "OLÀ";
+
+                }*/
+
+        rows = Mathf.CeilToInt(testNumberButtons / 3f);
+        cols = 3;
+
+        for (int y = 0; y < rows; y++)
+        {
+            for (int x = 0; x < cols; x++)
+            {
+                var button = Instantiate(videoButton, Vector3.zero, Quaternion.identity) as Button;
+                var rectTransform = button.GetComponent<RectTransform>();
+                rectTransform.SetParent(parentVideoButtonTransform.transform, false);
+
+                button.onClick.AddListener(() => _VideoButtonClicked(button));
+            }
+        }
+
+       /* var button = Instantiate(videoButton, videoButton.transform.position + new Vector3(500, 0, 0), Quaternion.identity) as Button;
+        var rectTransform = button.GetComponent<RectTransform>();
+        rectTransform.SetParent(parentVideoButtonTransform.transform, false);*/
+
+
+
+        panelMainMenu.SetActive(true);
+        panelMoviesMenu.SetActive(false);
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
     }
 
@@ -49,9 +116,21 @@ public class UIManager_MM : MonoBehaviour
 
     }
 
-    public void _LevelButtonClicked(int indexLevel)
+    public void _SceneButtonClicked(int indexScene)
     {
-        mainMenuManager.LoadAsyncGamePlay(indexLevel);
+        mainMenuManager.LoadAsyncGamePlay(indexScene);
+    }
+
+    public void _MoviesButtonClicked()
+    {
+        panelMainMenu.SetActive(false);
+        panelMoviesMenu.SetActive(true);
+    }
+
+    public void _CloseMoviesButtonClicked()
+    {
+        panelMainMenu.SetActive(true);
+        panelMoviesMenu.SetActive(false);
     }
 
     public void UpdateLanguage(int indexLanguage)
@@ -59,25 +138,23 @@ public class UIManager_MM : MonoBehaviour
 
     }
 
-    /*public void UpdadeLevelButtons(int unlockedLevels)
+    public void _VideoButtonClicked(Button button)
     {
-        // Set All Buttons Lock
-        for (int i = 0; i < levelButtons.Length; i++)
-        {
-            levelButtons[i].SetActive(false);
-        }
+        var rectTransform = button.GetComponent<RectTransform>();
 
-        // Set Only the Buttons Unlocked
-        int unlock = unlockedLevels + 1;
-        Mathf.Clamp(unlock, 0, levelButtons.Length);
-        Debug.Log("Unlocked Levels:  " + unlock);
-        for (int j = 0; j < unlock; j++)
-        {
-            levelButtons[j].SetActive(true);
-            if (j >= unlock-1)
-            {
-                LeanTween.scale(levelButtons[j], levelButtons[j].transform.localScale * 1.2f, 0.5f).setLoopPingPong();
-            }
-        }
-    }*/
+        videoPlayer.SetActive(true);
+
+        var videoRectTransform = videoPlayer.GetComponent<RectTransform>();
+
+        videoRectTransform.position = rectTransform.position;
+
+        // Position and Scale Animation
+        LeanTween.move(videoRectTransform, Vector3.zero, 1f);
+
+        LeanTween.size(videoRectTransform, new Vector2(1600, 900), 1f);
+
+
+        Debug.Log(videoRectTransform + " " + rectTransform);
+
+    }
 }

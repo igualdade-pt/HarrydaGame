@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    //public AspectRatio AspectRatio { get; private set; }
-
     private int indexLanguage;
 
     private UIManager_MM uiManager_MM;
@@ -65,16 +63,6 @@ public class MainMenuManager : MonoBehaviour
         uiManager_MM = FindObjectOfType<UIManager_MM>().GetComponent<UIManager_MM>();
 
         uiManager_MM.UpdateLanguage(indexLanguage);
-
-/*        if (PlayerPrefs.HasKey("unlockedLevels")) 
-        {
-            Debug.Log("Has Key unlockedLevels, value: " + PlayerPrefs.GetInt("unlockedLevels", 0));
-            uiManager_MM.UpdadeLevelButtons(PlayerPrefs.GetInt("unlockedLevels", 0));
-        }
-        else
-        {
-            uiManager_MM.UpdadeLevelButtons(0);
-        }*/
         
     }
 
@@ -83,15 +71,15 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(indexScene);
     }
 
-    public void LoadAsyncGamePlay(int indexLevel)
+    public void LoadAsyncGamePlay(int indexScene)
     {
-        gameInstance.LevelIndex = indexLevel;
+        gameInstance.SceneIndex = indexScene;
         StartCoroutine(StartLoadAsyncScene(indexGameplayScene));
     }
 
-    private IEnumerator StartLoadAsyncScene(int indexScene)
+    private IEnumerator StartLoadAsyncScene(int indexGameplayScene)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(indexScene);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(indexGameplayScene);
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)

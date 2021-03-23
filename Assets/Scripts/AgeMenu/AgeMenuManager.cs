@@ -62,11 +62,11 @@ public class AgeMenuManager : MonoBehaviour
     {
         if (age <= 4)
         {
-            gameInstance.DifficultyLevelIndex = 0;
+            //gameInstance.DifficultyLevelIndex = 0;
         }
         else
         {
-            gameInstance.DifficultyLevelIndex = 1;
+            //gameInstance.DifficultyLevelIndex = 1;
         }
 
         LoadScene();

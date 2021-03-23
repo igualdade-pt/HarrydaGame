@@ -11,7 +11,7 @@ public class GameInstanceScript : MonoBehaviour
 
     private int indexLanguage = 0;
 
-    private int indexLevel = 0;
+    private int indexScene = 0;
 
     private int indexLevelDifficulty = 0;
 
@@ -27,19 +27,19 @@ public class GameInstanceScript : MonoBehaviour
     /// <summary>
     /// Index of the chosen level
     /// </summary>
-    public int LevelIndex
+    public int SceneIndex
     {
-        get { return indexLevel; }
-        set { indexLevel = value; }
+        get { return indexScene; }
+        set { indexScene = value; }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Index of the chosen difficulty ; 0 - Basic , 1 - Expert
     /// </summary>
     public int DifficultyLevelIndex
     {
         get { return indexLevelDifficulty; }
         set { indexLevelDifficulty = value; }
-    }
+    }*/
 
 }

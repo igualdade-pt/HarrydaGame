@@ -17,6 +17,7 @@ public class LanguageMenuManager : MonoBehaviour
     private int indexSceneToLoad;
 
 
+
     private void Awake()
     {
         // Create, if not, the Game Instance
@@ -29,10 +30,13 @@ public class LanguageMenuManager : MonoBehaviour
 
         // For test
         PlayerPrefs.DeleteAll();
+
+
     }
 
     private void Start()
     {
+
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         Screen.autorotateToLandscapeRight = true;
