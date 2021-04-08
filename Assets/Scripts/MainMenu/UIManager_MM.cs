@@ -154,7 +154,19 @@ public class UIManager_MM : MonoBehaviour
         LeanTween.size(videoRectTransform, new Vector2(1600, 900), 1f);
 
 
-        Debug.Log(videoRectTransform + " " + rectTransform);
+        //Debug.Log(videoRectTransform.position + " " + rectTransform);
 
+    }
+
+    public void _ReturnVideoButtonClicked()
+    {
+         if (videoPlayer.activeSelf)
+        {
+            var videoRectTransform = videoPlayer.GetComponent<RectTransform>();
+
+            videoRectTransform.sizeDelta = new Vector2(300, 200);
+
+            videoPlayer.SetActive(false);
+        }
     }
 }
