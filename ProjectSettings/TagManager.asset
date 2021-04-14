@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ButtonDelete
+  - ButtonShare
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3471333809
+    locked: 0
+  - name: Props
+    uniqueID: 3811839487
+    locked: 0
+  - name: Foreground
+    uniqueID: 987142625
+    locked: 0
+  - name: UI
+    uniqueID: 3733044521
     locked: 0

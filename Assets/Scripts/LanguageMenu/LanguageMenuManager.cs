@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 using UnityEngine.SceneManagement;
 
 public class LanguageMenuManager : MonoBehaviour
@@ -49,13 +52,21 @@ public class LanguageMenuManager : MonoBehaviour
         // Orientation Screen
         Screen.SetResolution(1920, 1080, true);
 
+        // Permission
+        #if PLATFORM_ANDROID
+        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            Permission.RequestUserPermission(Permission.Microphone);
+        }
+        #endif
+
         //Check if the language is saved
         if (PlayerPrefs.HasKey("languageSystem"))
         {
             indexLanguage = PlayerPrefs.GetInt("languageSystem", 0);
         }
         else // If not
-        { 
+        {
             languageSystem = Application.systemLanguage;
 
             switch (languageSystem)
