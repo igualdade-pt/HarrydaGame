@@ -1,4 +1,5 @@
 ﻿using NatSuite.Sharing;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,8 +40,6 @@ public class UIManager_MM : MonoBehaviour
     [SerializeField]
     private int timerVideoButton = 1;
 
-    [SerializeField]
-    private GameObject videoPlay;
 
     // Buttons VideoPlayer
     [SerializeField]
@@ -59,6 +58,9 @@ public class UIManager_MM : MonoBehaviour
     private Button yesButton;
 
     [SerializeField]
+    private GameObject videoPlay;
+
+    [SerializeField]
     private GameObject videoPlayer_BG;
 
     [SerializeField]
@@ -66,20 +68,20 @@ public class UIManager_MM : MonoBehaviour
 
     private bool canPlayVideo = false;
 
+
     private void Awake()
     {
-
-    }
-
-    private void Start()
-    {
-        mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
-
         UpdateVideosList();
 
         panelMainMenu.SetActive(true);
         panelMoviesMenu.SetActive(false);
         panelDeleteMenu.SetActive(false);
+        videoPlayer_BG.SetActive(false);
+    }
+
+
+    private void Start()
+    {
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
     }
 
@@ -113,30 +115,19 @@ public class UIManager_MM : MonoBehaviour
 
                     button.onClick.AddListener(() => _VideoButtonClicked(button));
 
-                    var video = button.GetComponentInChildren<VideoPlayer>();
-                    var image = button.GetComponentInChildren<RawImage>();
+                    var videoScript = button.GetComponentInChildren<VideoButton>();
 
-                    video.renderMode = VideoRenderMode.RenderTexture;
-                    var textureVideo = new RenderTexture(1920, 1080, 24, RenderTextureFormat.ARGB32);
-                    image.texture = textureVideo;
-                    video.targetTexture = textureVideo;
 
                     //Android
-                    video.source = VideoSource.Url;
-                    video.url = videosPath[y];
+                    /*video.source = VideoSource.Url;
+                    video.url = videosPath[y];*/
+                    videoScript.RenderImageByUrl(videosPath[y]);
+
 
                     // TEST
-                    /*video.source = VideoSource.VideoClip;
-                    video.clip = videos[y];*/
+                    //videoScript.RenderImageByVideoClip(videos[y]);
 
-                    video.audioOutputMode = VideoAudioOutputMode.None;
-                    video.isLooping = true;
-                    video.playOnAwake = true;
-                    video.errorReceived += Video_errorReceived;
-
-                    //video.started += StopVideoButton;
-
-                    var buttons = button.GetComponentsInChildren<Button>();
+                    var buttons = button.GetComponentsInChildren<Button>(true);
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         if (buttons[i].gameObject.tag == "ButtonDelete")
@@ -153,7 +144,6 @@ public class UIManager_MM : MonoBehaviour
             }
         }
     }
-
 
 
     public void _InformationButtonClicked()
@@ -218,13 +208,13 @@ public class UIManager_MM : MonoBehaviour
         }
     }
 
-    public void _DeleteVideoButtonClicked(Button button)
+    private void _DeleteVideoButtonClicked(Button button)
     {
         panelDeleteMenu.SetActive(true);
         yesButton.onClick.AddListener(() => _YesVideoButtonClicked(button));
     }
 
-    public void _YesVideoButtonClicked(Button button)
+    private void _YesVideoButtonClicked(Button button)
     {
         var url = button.GetComponentInChildren<VideoPlayer>().url;
 
@@ -232,11 +222,12 @@ public class UIManager_MM : MonoBehaviour
         {
             File.Delete(url);
             GameObject.Destroy(button.gameObject);
-            UpdateVideosList();
+            //UpdateVideosList();
         }
 
-        panelDeleteMenu.SetActive(false);
+        //GameObject.Destroy(button.gameObject);
         yesButton.onClick.RemoveAllListeners();
+        panelDeleteMenu.SetActive(false);
     }
 
     public void _NoVideoButtonClicked()
@@ -245,7 +236,7 @@ public class UIManager_MM : MonoBehaviour
         yesButton.onClick.RemoveAllListeners();
     }
 
-    public void _ShareVideoButtonClicked(Button button)
+    private void _ShareVideoButtonClicked(Button button)
     {
         var url = button.GetComponentInChildren<VideoPlayer>().url;
 
@@ -260,18 +251,16 @@ public class UIManager_MM : MonoBehaviour
     /// <summary>
     /// VideoPlayer Play/Pause/Resume/Stop Video
     /// </summary>
-    public void _VideoButtonClicked(Button button)
+    private void _VideoButtonClicked(Button button)
     {
         if (!File.Exists(button.GetComponentInChildren<VideoPlayer>().url))
             return;
 
-
         var rectTransform = button.GetComponent<RectTransform>();
 
         var videoToPlay = videoPlay.GetComponent<VideoPlayer>();
+        videoToPlay.targetTexture.Release();
 
-        var renderTexture = videoToPlay.targetTexture;
-        renderTexture.Release();
 
         // Android
         videoToPlay.source = VideoSource.Url;
