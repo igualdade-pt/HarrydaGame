@@ -38,9 +38,18 @@ public class Player_S : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 3f;
 
+    [SerializeField]
+    private AudioClip jumpClip;
+
+    private AudioSource audioSource;
+
+    private RecordManager recordManager;
+
     private void Start()
     {
         canDoubleTap = true;
+        audioSource = gameObject.AddComponent<AudioSource>();
+        recordManager = FindObjectOfType<RecordManager>().GetComponent<RecordManager>();
     }
 
 
@@ -111,6 +120,7 @@ public class Player_S : MonoBehaviour
                 {
                     LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(easeType).setOnComplete(CanDoubleTapAgain);
                 }
+                PlaySFX(jumpClip);
                 break;
 
             case 1:
@@ -122,6 +132,7 @@ public class Player_S : MonoBehaviour
                 {
                     LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(easeType).setOnComplete(CanDoubleTapAgain);
                 }
+                PlaySFX(jumpClip);
                 break;
 
             case 2:
@@ -147,9 +158,16 @@ public class Player_S : MonoBehaviour
     public void UpdadeCharacter (int indexPlayer)
     {
         Debug.Log(indexPlayer);
+        myIndex = indexPlayer;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[indexPlayer];
         hasDoubleTap = whoDoubleTap[indexPlayer];
     
+    }
+
+    private void PlaySFX(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip, 0.8f);
+        recordManager.PlaySFXOnRecord(clip);    
     }
 }

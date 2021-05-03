@@ -16,42 +16,40 @@ public class RecordManager : MonoBehaviour
     [SerializeField]
     private int videoHeight = 1080;
     [SerializeField]
-    private bool recordMicrophone;
-    [SerializeField]
     private Camera recordCamera;
 
     private IMediaRecorder recorder;
     private CameraInput cameraInput;
     private AudioInput audioInput;
 
-
-    private AudioSource microphoneSource;
-
-    [SerializeField]
-    private AudioListener audioListener;
+    private AudioSource audioSource;
 
     [SerializeField]
     private Text textError;
 
     private bool isRecording = false;
 
+    [SerializeField]
+    private AudioClip clip1;
+
     private IEnumerator Start()
     {
         // Start microphone
-        microphoneSource = gameObject.AddComponent<AudioSource>();
-        microphoneSource.mute =
-        microphoneSource.loop = true;
-        microphoneSource.bypassEffects = 
-        microphoneSource.bypassListenerEffects = false;
-        microphoneSource.clip = Microphone.Start(null, true, 10, AudioSettings.outputSampleRate);
-        yield return new WaitUntil(() => Microphone.GetPosition(null) > 0);
-        microphoneSource.Play();
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.mute =
+        audioSource.loop = true;
+        audioSource.bypassEffects = 
+        audioSource.bypassListenerEffects = false;
+        audioSource.clip = Microphone.Start(null, true, 10, AudioSettings.outputSampleRate);
+        yield return new WaitUntil(() => Microphone.GetPosition(null) > 0);        
+        audioSource.Play();
     }
+
 
     private void OnDestroy()
     {
         // Stop microphone
-        microphoneSource.Stop();
+        audioSource.Stop();
         Microphone.End(null);
     }
 
@@ -59,16 +57,18 @@ public class RecordManager : MonoBehaviour
     {
         // Start recording
         var frameRate = 30;
-        var sampleRate = recordMicrophone ? AudioSettings.outputSampleRate : 0;
-        var channelCount = recordMicrophone ? (int)AudioSettings.speakerMode : 0;
+        var sampleRate = AudioSettings.outputSampleRate;
+        var channelCount = (int)AudioSettings.speakerMode;
         var clock = new RealtimeClock();
         recorder = new MP4Recorder(videoWidth, videoHeight, frameRate, sampleRate, channelCount);
         // Create recording inputs
         cameraInput = new CameraInput(recorder, clock, recordCamera);
-        //audioInput = new AudioInput(recorder, clock, audioListener);
-        audioInput = recordMicrophone ? new AudioInput(recorder, clock, microphoneSource, true) : null;
+        audioInput = new AudioInput(recorder, clock, audioSource, true);
         // Unmute microphone
-        microphoneSource.mute = audioInput == null;
+        audioSource.mute = audioInput == null;
+
+        // Play Sounds
+        //audioSource.PlayOneShot(clip1, 0.2f);
 
         isRecording = true;
     }
@@ -79,7 +79,7 @@ public class RecordManager : MonoBehaviour
         {
             isRecording = false;
             // Mute microphone
-            microphoneSource.mute = true;
+            audioSource.mute = true;
             // Stop recording
             audioInput?.Dispose();
             cameraInput.Dispose();
@@ -91,11 +91,13 @@ public class RecordManager : MonoBehaviour
         }
     }
 
-    private void OnAudioFilterRead(float[] data, int channels)
+    public void PlaySFXOnRecord(AudioClip clip)
     {
-/*        float[] data1 = new float[256];
-        microphoneSource.clip.GetData(data1, 0);
-        Array.Clear(data1, 0, data1.Length);*/
+        if (isRecording)
+        {
+            audioSource.PlayOneShot(clip, 0.75f);
+        }
     }
+
 }
 

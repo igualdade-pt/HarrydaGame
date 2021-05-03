@@ -1429,10 +1429,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoWidth: 1080
   videoHeight: 720
-  recordMicrophone: 1
   recordCamera: {fileID: 586298444}
-  audioListener: {fileID: 519420029}
   textError: {fileID: 1656577429}
+  clip1: {fileID: 0}
 --- !u!1 &462174848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,7 +2561,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962100727}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bcc51b6b9b64d2d47b13dcb639831bc8, type: 3}
@@ -4418,7 +4417,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656577427}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 

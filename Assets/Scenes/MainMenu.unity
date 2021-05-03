@@ -866,9 +866,9 @@ RectTransform:
   - {fileID: 206372388}
   - {fileID: 238000504}
   - {fileID: 1285554726}
-  - {fileID: 859005510}
   - {fileID: 2040939285}
   - {fileID: 534699397}
+  - {fileID: 859005510}
   - {fileID: 1277608580}
   m_Father: {fileID: 697686327}
   m_RootOrder: 1
@@ -1448,7 +1448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &534699395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,12 +1500,12 @@ RectTransform:
   m_Children:
   - {fileID: 1527900391}
   m_Father: {fileID: 392745739}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 200}
+  m_SizeDelta: {x: 351.36, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &551929475
 GameObject:
@@ -2334,7 +2334,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 392745739}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4040,9 +4040,9 @@ MonoBehaviour:
   text: {fileID: 238000505}
   panelMainMenu: {fileID: 148232951}
   panelDeleteMenu: {fileID: 1277608579}
+  ReturnButtonFromMovie: {fileID: 859005509}
   videoButton: {fileID: 7732036401912330319, guid: d7f03e6c3c898a541b0e78a7ccd64c46, type: 3}
   parentVideoButtonTransform: {fileID: 873706801}
-  testNumberButtons: 6
   easeType: 27
   curve:
     serializedVersion: 2
@@ -4055,9 +4055,9 @@ MonoBehaviour:
   pauseButton: {fileID: 1014731424}
   resumeButton: {fileID: 953222660}
   replayButton: {fileID: 1180553505}
-  yesButton: {fileID: 2067576017}
   videoPlay: {fileID: 1527900390}
   videoPlayer_BG: {fileID: 534699394}
+  yesButton: {fileID: 2067576017}
   videos:
   - {fileID: 32900000, guid: eaf1ad1de2d88574bb3ac32454ef16fe, type: 3}
   - {fileID: 32900000, guid: 4f307d43127098546807e614c4b4b844, type: 3}
@@ -5464,7 +5464,7 @@ RectTransform:
   - {fileID: 953282674}
   - {fileID: 1196805514}
   m_Father: {fileID: 392745739}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

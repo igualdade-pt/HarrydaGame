@@ -22,14 +22,14 @@ public class UIManager_MM : MonoBehaviour
     private GameObject panelDeleteMenu;
 
     [SerializeField]
+    private GameObject ReturnButtonFromMovie;
+
+    [Space]
+    [SerializeField]
     private Button videoButton;
 
     [SerializeField]
     private GameObject parentVideoButtonTransform;
-
-
-    [SerializeField]
-    private int testNumberButtons = 6;
 
     [SerializeField]
     private LeanTweenType easeType;
@@ -42,6 +42,8 @@ public class UIManager_MM : MonoBehaviour
 
 
     // Buttons VideoPlayer
+    [Header("Buttons VideoPlayer")]
+    [Space]
     [SerializeField]
     private GameObject playButton;
 
@@ -55,14 +57,18 @@ public class UIManager_MM : MonoBehaviour
     private GameObject replayButton;
 
     [SerializeField]
-    private Button yesButton;
-
-    [SerializeField]
     private GameObject videoPlay;
 
     [SerializeField]
     private GameObject videoPlayer_BG;
 
+
+    [Space]
+    [SerializeField]
+    private Button yesButton;
+
+    [Header("Video Clips Test")]
+    [Space]
     [SerializeField]
     private VideoClip[] videos;
 
@@ -77,6 +83,7 @@ public class UIManager_MM : MonoBehaviour
         panelMoviesMenu.SetActive(false);
         panelDeleteMenu.SetActive(false);
         videoPlayer_BG.SetActive(false);
+        ReturnButtonFromMovie.SetActive(false);
     }
 
 
@@ -188,8 +195,11 @@ public class UIManager_MM : MonoBehaviour
 
     public void _CloseMoviesButtonClicked()
     {
-        panelMainMenu.SetActive(true);
-        panelMoviesMenu.SetActive(false);
+        if (!videoPlayer_BG.activeSelf)
+        {
+            panelMainMenu.SetActive(true);
+            panelMoviesMenu.SetActive(false);
+        }
     }
 
     public void UpdateLanguage(int indexLanguage)
@@ -199,12 +209,13 @@ public class UIManager_MM : MonoBehaviour
 
     public void _ReturnVideoButtonClicked()
     {
-        if (videoPlay.activeSelf)
+        if (videoPlayer_BG.activeSelf)
         {
             videoPlay.GetComponent<VideoPlayer>().Stop();
             videoPlayer_BG.SetActive(false);
             playButton.SetActive(true);
             canPlayVideo = false;
+            ReturnButtonFromMovie.SetActive(false);
         }
     }
 
@@ -299,6 +310,7 @@ public class UIManager_MM : MonoBehaviour
     private void PlayButtonReady()
     {
         canPlayVideo = true;
+        ReturnButtonFromMovie.SetActive(true);
     }
 
 
