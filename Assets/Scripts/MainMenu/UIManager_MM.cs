@@ -112,7 +112,7 @@ public class UIManager_MM : MonoBehaviour
             if (videosPath.Length == 0)
                 return;
 
-            for (int y = 0; y < videosPath.Length; y++)
+            for (int y = videosPath.Length - 1; y > 0; y--)
             {
                 if (File.Exists(videosPath[y]))
                 {

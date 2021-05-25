@@ -51,10 +51,19 @@ public class UIManager_GM : MonoBehaviour
     private GameObject panelStoppedRecordingMenu;
 
     [SerializeField]
+    private GameObject buttonRecording;
+
+    [SerializeField]
+    private Animation buttonAnimation;
+
+    [SerializeField]
     private Text title;
 
     [SerializeField]
     private Text textError;
+
+    [SerializeField]
+    private int menuMovieSceneIndex = 2;
 
     private int indexLanguage;
 
@@ -336,7 +345,7 @@ public class UIManager_GM : MonoBehaviour
                     }
                     break;
             }
-        }      
+        }
     }
 
     public void _SelectedCharacterClick(GameObject image)
@@ -450,26 +459,49 @@ public class UIManager_GM : MonoBehaviour
 
     public void _RecordButtonClicked()
     {
+        panelStoppedRecordingMenu.SetActive(recordManager.IsRecording);
+
+        if (recordManager.IsRecording)
+        {
+            buttonAnimation[buttonAnimation.clip.name].time = 0;
+            buttonAnimation[buttonAnimation.clip.name].speed = 0;
+        }
+        else
+        {
+            buttonAnimation[buttonAnimation.clip.name].speed = 1;
+            if (!buttonAnimation.isPlaying)
+            {
+                buttonAnimation.Play();
+            }
+        }
+
         recordManager.StartRecording();
+        
+    }
+
+    public void _UnPauseButtonClicked()
+    {
+        buttonAnimation[buttonAnimation.clip.name].speed = 1;
+        panelStoppedRecordingMenu.SetActive(recordManager.IsRecording);
+        recordManager.UnPauseRecording();
     }
 
     public void _SaveRecordButtonClicked()
     {
+
         recordManager.StopRecording();
-        panelStoppedRecordingMenu.SetActive(true);
     }
 
     public void _ReturnButtonClicked(int indexScene)
     {
-        //gameplayManager.LoadScene(indexScene);
-        gameplayManager.LoadAsyncGamePlay(indexScene);
+        gameplayManager.LoadScene(indexScene, false);
     }
 
     public void _ReturnToCharactersButtonClicked()
     {
         panelStoppedRecordingMenu.SetActive(false);
         panelGameplay.SetActive(false);
-        panelSelectCharacterMenu.SetActive(true);    
+        panelSelectCharacterMenu.SetActive(true);
     }
 
     public void _RecordAgainButtonClicked()
@@ -477,4 +509,9 @@ public class UIManager_GM : MonoBehaviour
         panelStoppedRecordingMenu.SetActive(false);
     }
 
+
+    public void MovieSaved()
+    {
+        gameplayManager.LoadScene(menuMovieSceneIndex, true);
+    }
 }

@@ -13,7 +13,7 @@ public class GameInstanceScript : MonoBehaviour
 
     private int indexScene = 0;
 
-    private int indexLevelDifficulty = 0;
+    private bool isRecorded = false;
 
     /// <summary>
     /// Index of the chosen language
@@ -33,13 +33,13 @@ public class GameInstanceScript : MonoBehaviour
         set { indexScene = value; }
     }
 
-    /*/// <summary>
-    /// Index of the chosen difficulty ; 0 - Basic , 1 - Expert
+    /// <summary>
+    /// Condition To Go Back To Menu Movies
     /// </summary>
-    public int DifficultyLevelIndex
+    public bool IsRecorded
     {
-        get { return indexLevelDifficulty; }
-        set { indexLevelDifficulty = value; }
-    }*/
+        get { return isRecorded; }
+        set { isRecorded = value; }
+    }
 
 }

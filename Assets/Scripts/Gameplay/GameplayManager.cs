@@ -111,8 +111,9 @@ public class GameplayManager : MonoBehaviour
     }
 
 
-    public void LoadScene(int indexScene)
+    public void LoadScene(int indexScene, bool backToMenuMovies)
     {
+        gameInstance.IsRecorded = backToMenuMovies;
         SceneManager.LoadScene(indexScene);
     }
 

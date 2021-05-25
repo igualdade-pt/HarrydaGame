@@ -63,6 +63,13 @@ public class MainMenuManager : MonoBehaviour
         uiManager_MM = FindObjectOfType<UIManager_MM>().GetComponent<UIManager_MM>();
 
         uiManager_MM.UpdateLanguage(indexLanguage);
+
+        if (gameInstance.IsRecorded)
+        {
+            uiManager_MM._MoviesButtonClicked();
+            gameInstance.IsRecorded = false;
+        }   
+       
         
     }
 
