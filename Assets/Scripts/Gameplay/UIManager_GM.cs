@@ -10,10 +10,23 @@ public class UIManager_GM : MonoBehaviour
     private RecordManager recordManager;
 
     [SerializeField]
-    private RectTransform[] tCharacters;
+    private GameObject[] charactersPool;
 
     [SerializeField]
-    private float[] xCharacters;
+    private RectTransform[] tCharacterPublicBath;
+
+    [SerializeField]
+    private RectTransform[] tCharacterSchool;
+
+    private RectTransform[][] tCharacters = new RectTransform[2][];
+
+    [SerializeField]
+    private float[] xCharactersPublicBath;
+
+    [SerializeField]
+    private float[] xCharactersSchool;
+
+    private float[][] xCharacters = new float[2][];
 
     [SerializeField]
     private LeanTweenType easeType;
@@ -27,7 +40,12 @@ public class UIManager_GM : MonoBehaviour
     private float timeAnim = 0.8f;
 
     [SerializeField]
-    private string[] textCharacterNames;
+    private string[] textCharacterNamesForPublicBath;
+
+    [SerializeField]
+    private string[] textCharacterNamesForSchool;
+
+    private string[][] textCharacterNames = new string[2][];
 
     [SerializeField]
     private Text textCharacterName;
@@ -38,8 +56,8 @@ public class UIManager_GM : MonoBehaviour
     private int currentIndexCharacter;
 
     private bool canChange;
-
-    private List<int> charactersSelected = new List<int>(14);
+    private int indexGame;
+    private List<int> charactersSelected = new List<int>(12);
 
     [SerializeField]
     private GameObject panelSelectCharacterMenu;
@@ -63,11 +81,24 @@ public class UIManager_GM : MonoBehaviour
     private Text textError;
 
     [SerializeField]
+    private Text timerRecording;
+
+    [SerializeField]
+    private Text timerRecordingShadow;
+
+    [SerializeField]
     private int menuMovieSceneIndex = 2;
 
     private int indexLanguage;
 
     private bool activeImage;
+    private bool canDrag;
+    private bool positiveDrag;
+    private Vector2 lastDragPosition;
+    private int sec;
+    private bool isRecording;
+    private int counterSec;
+    private int counterMin;
 
     private void Start()
     {
@@ -75,12 +106,34 @@ public class UIManager_GM : MonoBehaviour
         panelGameplay.SetActive(false);
         panelStoppedRecordingMenu.SetActive(false);
         gameplayManager = FindObjectOfType<GameplayManager>().GetComponent<GameplayManager>();
-        InitUpdateCharacter(0);
+
         canChange = true;
         charactersSelected.Clear();
         textError.text = "";
 
         recordManager = FindObjectOfType<RecordManager>().GetComponent<RecordManager>();
+
+
+    }
+
+    public void UpdateSceneCharacter(int value)
+    {
+        indexGame = value;
+
+        textCharacterNames[0] = textCharacterNamesForPublicBath;
+        textCharacterNames[1] = textCharacterNamesForSchool;
+
+        tCharacters[0] = tCharacterPublicBath;
+        tCharacters[1] = tCharacterSchool;
+
+        xCharacters[0] = xCharactersPublicBath;
+        xCharacters[1] = xCharactersSchool;
+
+        charactersPool[0].SetActive(false);
+        charactersPool[1].SetActive(false);
+        charactersPool[value].SetActive(true);
+
+        InitUpdateCharacter(0);
     }
 
 
@@ -91,155 +144,283 @@ public class UIManager_GM : MonoBehaviour
     public void InitUpdateCharacter(int index)
     {
         // Change Flag
-        int t = index - Mathf.FloorToInt(xCharacters.Length / 2);
+        int t = index - Mathf.FloorToInt(xCharacters[indexGame].Length / 2);
         if (t < 0)
         {
-            t += xCharacters.Length;
+            t += xCharacters[indexGame].Length;
         }
 
-        for (int i = 0; i < tCharacters.Length; i++)
+        int x = Mathf.CeilToInt(tCharacters[indexGame].Length / 2);
+
+        if (indexGame == 1)
         {
-            if (t > 0)
+            for (int i = 0; i < tCharacters[indexGame].Length; i++)
             {
-                t--;
-            }
-            else
-            {
-                t = xCharacters.Length - 1;
-            }
+                if (t > 0)
+                {
+                    t--;
+                }
+                else
+                {
+                    t = xCharacters[indexGame].Length - 1;
+                }
 
-            tCharacters[i].anchoredPosition = new Vector2(xCharacters[t], tCharacters[i].anchoredPosition.y);
+                tCharacters[indexGame][i].anchoredPosition = new Vector2(xCharacters[indexGame][t], tCharacters[indexGame][i].anchoredPosition.y);
 
-            if (t == 6)
-            {
-                tCharacters[i].sizeDelta = new Vector2(400, 600);
+                if (t == x - 1)
+                {
+                    tCharacters[indexGame][i].sizeDelta = new Vector2(400, 600);
+                }
+                else
+                {
+                    tCharacters[indexGame][i].sizeDelta = new Vector2(250, 450);
+                }
             }
-            else
+        }
+        else
+        {
+            t = -1;
+            index = 0;
+            for (int i = 0; i < xCharacters[indexGame].Length; i++)
             {
-                tCharacters[i].sizeDelta = new Vector2(300, 500);
-            }
+                if (i != 0)
+                {
+                    t++;
+                    tCharacters[indexGame][t].anchoredPosition = new Vector2(xCharacters[indexGame][i], tCharacters[indexGame][t].anchoredPosition.y);
 
+                    if (t == 0)
+                    {
+                        tCharacters[indexGame][t].sizeDelta = new Vector2(400, 600);
+                    }
+                    else
+                    {
+                        tCharacters[indexGame][t].sizeDelta = new Vector2(250, 450);
+                    }
+                }
+            }
         }
 
 
         // Change Name
-        textCharacterName.text = textCharacterNames[index];
+        textCharacterName.text = textCharacterNames[indexGame][index];
     }
 
-    public void UpdateCaracter(int index, bool right)
+    public void UpdateCharacter(int index, bool right)
     {
         // Change Character
-        int t = index - Mathf.FloorToInt(xCharacters.Length / 2);
+        int t = index - Mathf.FloorToInt(xCharacters[indexGame].Length / 2);
         if (t < 0)
         {
-            t += xCharacters.Length;
+            t += xCharacters[indexGame].Length;
         }
 
-        for (int i = 0; i < tCharacters.Length; i++)
+        int x = Mathf.CeilToInt(tCharacters[indexGame].Length / 2);
+
+        if (indexGame == 1)
         {
-            if (t > 0)
+            for (int i = 0; i < tCharacters[indexGame].Length; i++)
             {
-                t--;
+                if (t > 0)
+                {
+                    t--;
+                }
+                else
+                {
+                    t = xCharacters[indexGame].Length - 1;
+                }
+
+                switch (right)
+                {
+                    case true:
+                        if (t == x - 2 || t == x - 1 || t == x || t == x + 1)
+                        {
+                            if (easeType == LeanTweenType.animationCurve)
+                            {
+                                LeanTween.moveX(tCharacters[indexGame][i], xCharacters[indexGame][t], timeAnim).setEase(curve).setOnComplete(CanChangeCharacter); ;
+                            }
+                            else
+                            {
+                                LeanTween.moveX(tCharacters[indexGame][i], xCharacters[indexGame][t], timeAnim).setEase(easeType).setOnComplete(CanChangeCharacter); ;
+                            }
+
+                            if (t == x - 1)
+                            {
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(400, 600), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(400, 600), timeAnim).setEase(easeType);
+                                }
+
+                            }
+                            else
+                            {
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(250, 450), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(250, 450), timeAnim).setEase(easeType);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            LeanTween.cancel(tCharacters[indexGame][i]);
+                            tCharacters[indexGame][i].anchoredPosition = new Vector2(xCharacters[indexGame][t], tCharacters[indexGame][i].anchoredPosition.y);
+                        }
+                        break;
+
+                    case false:
+                        if (t == x - 2 || t == x - 1 || t == x || t == x - 3)
+                        {
+                            if (easeType == LeanTweenType.animationCurve)
+                            {
+                                LeanTween.moveX(tCharacters[indexGame][i], xCharacters[indexGame][t], timeAnim).setEase(curve).setOnComplete(CanChangeCharacter);
+                            }
+                            else
+                            {
+                                LeanTween.moveX(tCharacters[indexGame][i], xCharacters[indexGame][t], timeAnim).setEase(easeType).setOnComplete(CanChangeCharacter);
+                            }
+
+                            if (t == x - 1)
+                            {
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(400, 600), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(400, 600), timeAnim).setEase(easeType);
+                                }
+
+                            }
+                            else
+                            {
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(250, 450), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][i], new Vector2(250, 450), timeAnim).setEase(easeType);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            LeanTween.cancel(tCharacters[indexGame][i]);
+                            tCharacters[indexGame][i].anchoredPosition = new Vector2(xCharacters[indexGame][t], tCharacters[indexGame][i].anchoredPosition.y);
+                        }
+                        break;
+                }
+
+            }
+        }
+        else
+        {
+            t = -1;
+            if (right)
+            {
+                index = 0;
             }
             else
             {
-                t = xCharacters.Length - 1;
+                index = 1;
             }
 
-            switch (right)
+            for (int i = 0; i < xCharacters[indexGame].Length; i++)
             {
-                case true:
-                    if (t == 5 || t == 6 || t == 7 || t == 8)
-                    {
-                        if (easeType == LeanTweenType.animationCurve)
+                switch (right)
+                {
+                    case true:
+                        if (i != 0)
                         {
-                            LeanTween.moveX(tCharacters[i], xCharacters[t], timeAnim).setEase(curve).setOnComplete(CanChangeCharacter); ;
-                        }
-                        else
-                        {
-                            LeanTween.moveX(tCharacters[i], xCharacters[t], timeAnim).setEase(easeType).setOnComplete(CanChangeCharacter); ;
-                        }
-
-                        if (t == 6)
-                        {
+                            t++;
                             if (easeType == LeanTweenType.animationCurve)
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(400, 600), timeAnim).setEase(curve);
+                                LeanTween.moveX(tCharacters[indexGame][t], xCharacters[indexGame][i], timeAnim).setEase(curve).setOnComplete(CanChangeCharacter); ;
                             }
                             else
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(400, 600), timeAnim).setEase(easeType);
+                                LeanTween.moveX(tCharacters[indexGame][t], xCharacters[indexGame][i], timeAnim).setEase(easeType).setOnComplete(CanChangeCharacter); ;
                             }
 
-                        }
-                        else
-                        {
-                            if (easeType == LeanTweenType.animationCurve)
+                            if (t == 0)
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(300, 500), timeAnim).setEase(curve);
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(400, 600), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(400, 600), timeAnim).setEase(easeType);
+                                }
+
                             }
                             else
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(300, 500), timeAnim).setEase(easeType);
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(250, 450), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(250, 450), timeAnim).setEase(easeType);
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        LeanTween.cancel(tCharacters[i]);
-                        tCharacters[i].anchoredPosition = new Vector2(xCharacters[t], tCharacters[i].anchoredPosition.y);
-                    }
-                    break;
+                        break;
 
-                case false:
-                    if (t == 4 || t == 5 || t == 6 || t == 7)
-                    {
-                        if (easeType == LeanTweenType.animationCurve)
+                    case false:
+                        if (i != 2)
                         {
-                            LeanTween.moveX(tCharacters[i], xCharacters[t], timeAnim).setEase(curve).setOnComplete(CanChangeCharacter);
-                        }
-                        else
-                        {
-                            LeanTween.moveX(tCharacters[i], xCharacters[t], timeAnim).setEase(easeType).setOnComplete(CanChangeCharacter);
-                        }
-
-                        if (t == 6)
-                        {
+                            t++;
                             if (easeType == LeanTweenType.animationCurve)
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(400, 600), timeAnim).setEase(curve);
+                                LeanTween.moveX(tCharacters[indexGame][t], xCharacters[indexGame][i], timeAnim).setEase(curve).setOnComplete(CanChangeCharacter);
                             }
                             else
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(400, 600), timeAnim).setEase(easeType);
+                                LeanTween.moveX(tCharacters[indexGame][t], xCharacters[indexGame][i], timeAnim).setEase(easeType).setOnComplete(CanChangeCharacter);
                             }
 
-                        }
-                        else
-                        {
-                            if (easeType == LeanTweenType.animationCurve)
+                            if (t == 1)
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(300, 500), timeAnim).setEase(curve);
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(400, 600), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(400, 600), timeAnim).setEase(easeType);
+                                }
+
                             }
                             else
                             {
-                                LeanTween.size(tCharacters[i], new Vector2(300, 500), timeAnim).setEase(easeType);
+                                if (easeType == LeanTweenType.animationCurve)
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(250, 450), timeAnim).setEase(curve);
+                                }
+                                else
+                                {
+                                    LeanTween.size(tCharacters[indexGame][t], new Vector2(250, 450), timeAnim).setEase(easeType);
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        LeanTween.cancel(tCharacters[i]);
-                        tCharacters[i].anchoredPosition = new Vector2(xCharacters[t], tCharacters[i].anchoredPosition.y);
-                    }
-                    break;
+                        break;
+                }
+
             }
-
         }
 
 
         // Change Name
-        textCharacterName.text = textCharacterNames[index];
+        textCharacterName.text = textCharacterNames[indexGame][index];
     }
 
     private void CanChangeCharacter()
@@ -251,20 +432,40 @@ public class UIManager_GM : MonoBehaviour
     {
         if (canChange)
         {
-            canChange = false;
-            if (currentIndexCharacter < tCharacters.Length - 1)
+            if (indexGame == 1)
             {
-                currentIndexCharacter++;
+                canChange = false;
+                if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
+                {
+                    currentIndexCharacter++;
+                }
+                else
+                {
+                    currentIndexCharacter = 0;
+                }
+
+                Debug.Log("Current Index Character: " + currentIndexCharacter);
+                UpdateCharacter(currentIndexCharacter, true);
+
+                //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
             }
             else
             {
-                currentIndexCharacter = 0;
+                canChange = false;
+                if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
+                {
+                    currentIndexCharacter++;
+                }
+                else
+                {
+                    currentIndexCharacter = tCharacters[indexGame].Length - 1;
+                }
+
+                Debug.Log("Current Index Character: " + currentIndexCharacter);
+                UpdateCharacter(currentIndexCharacter, true);
             }
 
-            Debug.Log("Current Index Character: " + currentIndexCharacter);
-            UpdateCaracter(currentIndexCharacter, true);
 
-            //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
         }
     }
 
@@ -272,28 +473,121 @@ public class UIManager_GM : MonoBehaviour
     {
         if (canChange)
         {
-            canChange = false;
-            if (currentIndexCharacter > 0)
+            if (indexGame == 1)
             {
-                currentIndexCharacter--;
+                canChange = false;
+                if (currentIndexCharacter > 0)
+                {
+                    currentIndexCharacter--;
+                }
+                else
+                {
+                    currentIndexCharacter = tCharacters[indexGame].Length - 1;
+                }
+
+                Debug.Log("Current Index Character: " + currentIndexCharacter);
+                UpdateCharacter(currentIndexCharacter, false);
+
+                //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
             }
             else
             {
-                currentIndexCharacter = tCharacters.Length - 1;
+                canChange = false;
+                if (currentIndexCharacter > 0)
+                {
+                    currentIndexCharacter--;
+                }
+                else
+                {
+                    currentIndexCharacter = 0;
+                }
+
+                Debug.Log("Current Index Character: " + currentIndexCharacter);
+                UpdateCharacter(currentIndexCharacter, false);
+
+                //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
             }
-
-            Debug.Log("Current Index Character: " + currentIndexCharacter);
-            UpdateCaracter(currentIndexCharacter, false);
-
-            //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
         }
     }
+
+
+    public void _BeginDrag()
+    {
+        lastDragPosition = Input.mousePosition;
+        //lastDragPosition = Input.GetTouch(0).position;
+    }
+
+    public void _Drag()
+    {
+        canDrag = false;
+
+        if (Input.mousePosition.x != lastDragPosition.x)
+        {
+            canDrag = true;
+            positiveDrag = Input.mousePosition.x > lastDragPosition.x;
+        }
+
+
+        if (canDrag)
+        {
+            if (positiveDrag)
+            {
+                if (canChange)
+                {
+                    canChange = false;
+                    if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
+                    {
+                        currentIndexCharacter++;
+                    }
+                    else
+                    {
+                        currentIndexCharacter = 0;
+                    }
+
+                    Debug.Log("Current Index Character: " + currentIndexCharacter);
+                    UpdateCharacter(currentIndexCharacter, true);
+
+                    //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                }
+            }
+            else
+            {
+                if (canChange)
+                {
+                    canChange = false;
+                    if (currentIndexCharacter > 0)
+                    {
+                        currentIndexCharacter--;
+                    }
+                    else
+                    {
+                        currentIndexCharacter = tCharacters[indexGame].Length - 1;
+                    }
+
+                    Debug.Log("Current Index Character: " + currentIndexCharacter);
+                    UpdateCharacter(currentIndexCharacter, false);
+
+                    //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                }
+            }
+        }
+
+
+        lastDragPosition = Input.mousePosition;
+        //lastDragPosition = Input.GetTouch(0).position;
+    }
+
+    public void _EndDrag()
+    {
+        canDrag = true;
+    }
+
 
     public void _SelectedCharacterClick(int index)
     {
         Debug.Log(" Index: " + index);
         textError.text = "";
-        if (charactersSelected.Count <= 3)
+        if (charactersSelected.Count <= 2)
         {
             activeImage = true;
             switch (charactersSelected.Contains(index))
@@ -303,7 +597,7 @@ public class UIManager_GM : MonoBehaviour
                     break;
 
                 case false:
-                    if (charactersSelected.Count < 3)
+                    if (charactersSelected.Count < 2)
                     {
                         charactersSelected.Add(index);
                     }
@@ -360,6 +654,7 @@ public class UIManager_GM : MonoBehaviour
 
                 case false:
                     image.SetActive(true);
+                    image.GetComponent<Text>().text = "Player Selected";
                     break;
             }
         }
@@ -465,6 +760,8 @@ public class UIManager_GM : MonoBehaviour
         {
             buttonAnimation[buttonAnimation.clip.name].time = 0;
             buttonAnimation[buttonAnimation.clip.name].speed = 0;
+            isRecording = false;
+            StopAllCoroutines();
         }
         else
         {
@@ -473,17 +770,47 @@ public class UIManager_GM : MonoBehaviour
             {
                 buttonAnimation.Play();
             }
+            isRecording = true;
+            counterSec = 0;
+            counterMin = 0;
+            StartCoroutine(RecordTimer());
         }
 
         recordManager.StartRecording();
-        
+
     }
+
+    private IEnumerator RecordTimer()
+    {
+
+        while (isRecording)
+        {
+            yield return new WaitForSeconds(1);
+            counterSec++;
+
+            if (counterSec > 59)
+            {
+                counterSec = 0;
+                counterMin++;
+            }
+
+            timerRecording.text = counterMin.ToString("0") + ":" + counterSec.ToString("00");
+
+
+            timerRecordingShadow.text = timerRecording.text;
+        }
+
+    }
+
+
 
     public void _UnPauseButtonClicked()
     {
         buttonAnimation[buttonAnimation.clip.name].speed = 1;
         panelStoppedRecordingMenu.SetActive(recordManager.IsRecording);
         recordManager.UnPauseRecording();
+        isRecording = true;
+        StartCoroutine(RecordTimer());
     }
 
     public void _SaveRecordButtonClicked()

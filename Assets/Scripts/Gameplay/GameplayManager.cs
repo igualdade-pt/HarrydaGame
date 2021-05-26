@@ -71,6 +71,8 @@ public class GameplayManager : MonoBehaviour
         // Get Level Selected
         indexScene = gameInstance.SceneIndex;
 
+        uiManager_GM.UpdateSceneCharacter(indexScene);
+
         background.sprite = backgroundSprites[indexScene];
 
         charactersSelected.Clear();

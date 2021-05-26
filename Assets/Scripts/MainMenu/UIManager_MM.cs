@@ -62,6 +62,8 @@ public class UIManager_MM : MonoBehaviour
     [SerializeField]
     private GameObject videoPlayer_BG;
 
+    [SerializeField]
+    private Text timeClip;
 
     [Space]
     [SerializeField]
@@ -84,12 +86,23 @@ public class UIManager_MM : MonoBehaviour
         panelDeleteMenu.SetActive(false);
         videoPlayer_BG.SetActive(false);
         ReturnButtonFromMovie.SetActive(false);
+        timeClip.gameObject.SetActive(false);
     }
 
 
     private void Start()
     {
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
+    }
+
+    private void Update()
+    {
+        if (videoPlay.GetComponent<VideoPlayer>().isPlaying)
+        {
+            var videoToPlay = videoPlay.GetComponent<VideoPlayer>();
+
+            timeClip.text = Mathf.FloorToInt(((videoToPlay.frameCount / videoToPlay.frameRate) / 60) % 60).ToString("00") + ":" + Mathf.FloorToInt(((int)(videoToPlay.frameCount / videoToPlay.frameRate) - (int)(videoToPlay.frame / videoToPlay.frameRate)) % 60).ToString("00");
+        }
     }
 
 
@@ -128,7 +141,7 @@ public class UIManager_MM : MonoBehaviour
                     //Android
                     /*video.source = VideoSource.Url;
                     video.url = videosPath[y];*/
-                    videoScript.RenderImageByUrl(videosPath[y]);
+                    videoScript.RenderImageByUrl(videosPath[y], y.ToString());
 
 
                     // TEST
@@ -216,6 +229,7 @@ public class UIManager_MM : MonoBehaviour
             playButton.SetActive(true);
             canPlayVideo = false;
             ReturnButtonFromMovie.SetActive(false);
+            timeClip.gameObject.SetActive(false);
         }
     }
 
@@ -281,6 +295,8 @@ public class UIManager_MM : MonoBehaviour
         /*videoToPlay.source = VideoSource.VideoClip;
         videoToPlay.clip = button.GetComponentInChildren<VideoPlayer>().clip;*/
 
+        timeClip.text = "00:00";
+        timeClip.gameObject.SetActive(true);
 
         videoPlayer_BG.SetActive(true);
 
@@ -324,18 +340,19 @@ public class UIManager_MM : MonoBehaviour
             resumeButton.SetActive(false);
             replayButton.SetActive(false);
 
+
             videoToPlay.Prepare();
 
             videoToPlay.prepareCompleted += PlayVideo;
 
             videoToPlay.loopPointReached += VideoStopped;
+
         }
     }
 
     // Video Stopped
     private void VideoStopped(VideoPlayer videoToPlay)
     {
-        Debug.Log("Parou");
         if (canPlayVideo)
         {
             replayButton.SetActive(true);
@@ -355,6 +372,7 @@ public class UIManager_MM : MonoBehaviour
             videoToPlay.Play();
 
             videoToPlay.errorReceived += Video_errorReceived;
+
         }
     }
 
@@ -404,4 +422,5 @@ public class UIManager_MM : MonoBehaviour
     {
         text.text = message;
     }
+
 }

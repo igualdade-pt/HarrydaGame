@@ -10,6 +10,9 @@ public class VideoButton : MonoBehaviour
     private RawImage image;
 
     [SerializeField]
+    private Text nameVideo;
+
+    [SerializeField]
     private VideoPlayer myVideoPlayer;
 
     private bool startedRender = false;
@@ -22,6 +25,8 @@ public class VideoButton : MonoBehaviour
         myVideoPlayer.renderMode = VideoRenderMode.APIOnly;
         myVideoPlayer.Stop();
 
+        
+
         /*myVideoPlayer.Stop();
         myVideoPlayer.renderMode = VideoRenderMode.APIOnly;
         myVideoPlayer.prepareCompleted += Prepared;
@@ -32,12 +37,14 @@ public class VideoButton : MonoBehaviour
         StartRender();
     }
 
-    public void RenderImageByUrl(string urlVideo)
+    public void RenderImageByUrl(string urlVideo, string name)
     {
         myVideoPlayer.source = VideoSource.Url;
         myVideoPlayer.url = urlVideo;
         myVideoPlayer.renderMode = VideoRenderMode.APIOnly;
         myVideoPlayer.Stop();
+
+        nameVideo.text = name;
 
         StartRender();
     }
