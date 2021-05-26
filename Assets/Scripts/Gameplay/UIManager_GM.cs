@@ -826,9 +826,12 @@ public class UIManager_GM : MonoBehaviour
 
     public void _ReturnToCharactersButtonClicked()
     {
-        panelStoppedRecordingMenu.SetActive(false);
-        panelGameplay.SetActive(false);
-        panelSelectCharacterMenu.SetActive(true);
+        if (!recordManager.IsRecording)
+        {
+            panelStoppedRecordingMenu.SetActive(false);
+            panelGameplay.SetActive(false);
+            panelSelectCharacterMenu.SetActive(true);
+        }
     }
 
     public void _RecordAgainButtonClicked()

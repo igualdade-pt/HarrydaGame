@@ -15,7 +15,11 @@ public class Player_S : MonoBehaviour
     [SerializeField]
     private Sprite[] sprites;
 
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    private GameObject specialSpriteRenderer;
 
     private bool canDoubleTap = true;
 
@@ -31,6 +35,9 @@ public class Player_S : MonoBehaviour
 
     [SerializeField]
     private AnimationCurve curve;
+
+    [SerializeField]
+    private Animator anim;
 
     [SerializeField]
     private float timeAnim = 0.8f;
@@ -102,6 +109,7 @@ public class Player_S : MonoBehaviour
 
                     }
                 }
+
                 break;
         }
     
@@ -111,27 +119,28 @@ public class Player_S : MonoBehaviour
     {
         switch (myIndex)
         {
-            case 0:
-                if (easeType == LeanTweenType.animationCurve)
+            case 11:
+                anim.SetTrigger("specialJump");
+/*                if (easeType == LeanTweenType.animationCurve)
                 {
                     LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(curve).setOnComplete(CanDoubleTapAgain);
                 }
                 else
                 {
                     LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(easeType).setOnComplete(CanDoubleTapAgain);
-                }
+                }*/
                 PlaySFX(jumpClip);
                 break;
 
-            case 1:
-                if (easeType == LeanTweenType.animationCurve)
+/*            case 1:
+*//*                if (easeType == LeanTweenType.animationCurve)
                 {
                     LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(curve).setOnComplete(CanDoubleTapAgain);
                 }
                 else
                 {
                     LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(easeType).setOnComplete(CanDoubleTapAgain);
-                }
+                }*//*
                 PlaySFX(jumpClip);
                 break;
 
@@ -141,10 +150,14 @@ public class Player_S : MonoBehaviour
 
             case 3:
 
-                break;
+                break;*/
 
             default:
                 Debug.Log("No Double Tap");
+
+                anim.SetTrigger("jump");
+
+                PlaySFX(jumpClip);
                 break;
         }
     }
@@ -159,15 +172,18 @@ public class Player_S : MonoBehaviour
     {
         Debug.Log(indexPlayer);
         myIndex = indexPlayer;
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[indexPlayer];
         hasDoubleTap = whoDoubleTap[indexPlayer];
-    
+        specialSpriteRenderer.SetActive(false);
+        if (indexPlayer == 11)
+        {
+            specialSpriteRenderer.SetActive(true);
+        }
     }
 
     private void PlaySFX(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip, 0.8f);
+        audioSource.PlayOneShot(clip, 0.6f);
         recordManager.PlaySFXOnRecord(clip);    
     }
 }

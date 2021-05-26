@@ -60,10 +60,13 @@ public class LanguageMenuManager : MonoBehaviour
         }
         #endif
 
+        gameInstance = FindObjectOfType<GameInstanceScript>().GetComponent<GameInstanceScript>();
+
         //Check if the language is saved
-        if (PlayerPrefs.HasKey("languageSystem"))
+        if (PlayerPrefs.HasKey("languageSystem") && !gameInstance.CameFromMainMenu)
         {
             indexLanguage = PlayerPrefs.GetInt("languageSystem", 0);
+            LoadLevel();
         }
         else // If not
         {
@@ -105,7 +108,7 @@ public class LanguageMenuManager : MonoBehaviour
         uiManager_LM.InitUpdateFlag(indexLanguage);
         uiManager_LM.ChangeCurrentIndexFlag = indexLanguage;
 
-        gameInstance = FindObjectOfType<GameInstanceScript>().GetComponent<GameInstanceScript>();
+
     }
 
     public void LoadLevel()
@@ -114,7 +117,15 @@ public class LanguageMenuManager : MonoBehaviour
         Debug.Log("Index Language saved: " + PlayerPrefs.GetInt("languageSystem", 0));
         gameInstance.LanguageIndex = indexLanguage;
 
-        SceneManager.LoadScene(indexSceneToLoad);
+        if (gameInstance.CameFromMainMenu)
+        {
+            gameInstance.CameFromMainMenu = false;
+            SceneManager.LoadScene(indexSceneToLoad - 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(indexSceneToLoad);
+        }
 
     }
 

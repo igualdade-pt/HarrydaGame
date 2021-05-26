@@ -15,6 +15,8 @@ public class GameInstanceScript : MonoBehaviour
 
     private bool isRecorded = false;
 
+    private bool cameFromMainMenu = false;
+
     /// <summary>
     /// Index of the chosen language
     /// </summary>
@@ -40,6 +42,15 @@ public class GameInstanceScript : MonoBehaviour
     {
         get { return isRecorded; }
         set { isRecorded = value; }
+    }
+
+    /// <summary>
+    /// The player came from the main menu
+    /// </summary>
+    public bool CameFromMainMenu
+    {
+        get { return cameFromMainMenu; }
+        set { cameFromMainMenu = value; }
     }
 
 }

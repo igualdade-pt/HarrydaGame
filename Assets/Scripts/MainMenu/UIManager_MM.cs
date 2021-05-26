@@ -63,6 +63,9 @@ public class UIManager_MM : MonoBehaviour
     private GameObject videoPlayer_BG;
 
     [SerializeField]
+    private GameObject movie_BG;
+
+    [SerializeField]
     private Text timeClip;
 
     [Space]
@@ -87,6 +90,8 @@ public class UIManager_MM : MonoBehaviour
         videoPlayer_BG.SetActive(false);
         ReturnButtonFromMovie.SetActive(false);
         timeClip.gameObject.SetActive(false);
+
+        movie_BG.SetActive(false);
     }
 
 
@@ -200,6 +205,11 @@ public class UIManager_MM : MonoBehaviour
         mainMenuManager.LoadAsyncGamePlay(indexScene);
     }
 
+    public void _SettingsButtonClicked(int index)
+    {
+        mainMenuManager.LoadScene(index);
+    }
+
     public void _MoviesButtonClicked()
     {
         panelMainMenu.SetActive(false);
@@ -230,6 +240,7 @@ public class UIManager_MM : MonoBehaviour
             canPlayVideo = false;
             ReturnButtonFromMovie.SetActive(false);
             timeClip.gameObject.SetActive(false);
+            movie_BG.SetActive(false);
         }
     }
 
@@ -327,6 +338,11 @@ public class UIManager_MM : MonoBehaviour
     {
         canPlayVideo = true;
         ReturnButtonFromMovie.SetActive(true);
+        movie_BG.SetActive(true);
+
+        var videoToPlay = videoPlay.GetComponent<VideoPlayer>();
+
+        _PlayButtonClicked(videoToPlay);
     }
 
 
