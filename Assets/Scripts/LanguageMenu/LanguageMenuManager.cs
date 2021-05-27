@@ -19,6 +19,9 @@ public class LanguageMenuManager : MonoBehaviour
     [SerializeField]
     private int indexSceneToLoad;
 
+    [SerializeField]
+    private GameObject musicManager;
+
 
 
     private void Awake()
@@ -27,19 +30,24 @@ public class LanguageMenuManager : MonoBehaviour
         if (FindObjectOfType<GameInstanceScript>() != null)
             return;
 
-        var go = new GameObject { name = "[Game Instance]" };
-        go.AddComponent<GameInstanceScript>();
-        DontDestroyOnLoad(go);
+        var gI = new GameObject { name = "[Game Instance]" };
+        gI.AddComponent<GameInstanceScript>();
+        DontDestroyOnLoad(gI);
 
         // For test
         PlayerPrefs.DeleteAll();
+
+        if (FindObjectOfType<MusicManagerScript>() != null)
+            return;
+
+        var mM = Instantiate(musicManager);
+        DontDestroyOnLoad(mM);
 
 
     }
 
     private void Start()
     {
-
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         Screen.autorotateToLandscapeRight = true;
@@ -68,7 +76,7 @@ public class LanguageMenuManager : MonoBehaviour
             indexLanguage = PlayerPrefs.GetInt("languageSystem", 0);
             LoadLevel();
         }
-        else // If not
+        else if (!PlayerPrefs.HasKey("languageSystem") && gameInstance.LanguageIndex == -1)
         {
             languageSystem = Application.systemLanguage;
 
@@ -100,6 +108,10 @@ public class LanguageMenuManager : MonoBehaviour
                     indexLanguage = 0;
                     break;
             }
+        }
+        else 
+        {
+            indexLanguage = gameInstance.LanguageIndex;
         }
 
 

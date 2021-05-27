@@ -9,7 +9,7 @@ public class GameInstanceScript : MonoBehaviour
     /// </summary>
 
 
-    private int indexLanguage = 0;
+    private int indexLanguage = -1;
 
     private int indexScene = 0;
 

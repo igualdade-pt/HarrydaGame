@@ -9,6 +9,18 @@ public class UIManager_GM : MonoBehaviour
 
     private RecordManager recordManager;
 
+    private MusicManagerScript musicManager;
+
+    [Header("Buttons TEXT")]
+    [Space]
+    [SerializeField]
+    private Sprite[] titleSprites;
+
+    [SerializeField]
+    private Image title;
+
+    [Header("Gameplay")]
+    [Space]
     [SerializeField]
     private GameObject[] charactersPool;
 
@@ -74,8 +86,8 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private Animation buttonAnimation;
 
-    [SerializeField]
-    private Text title;
+    /*[SerializeField]
+    private Text title;*/
 
     [SerializeField]
     private Text textError;
@@ -112,6 +124,8 @@ public class UIManager_GM : MonoBehaviour
         textError.text = "";
 
         recordManager = FindObjectOfType<RecordManager>().GetComponent<RecordManager>();
+
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
 
 
     }
@@ -653,7 +667,7 @@ public class UIManager_GM : MonoBehaviour
                     break;
 
                 case false:
-                    image.SetActive(true);
+                    image.SetActive(true); 
                     image.GetComponent<Text>().text = "Player Selected";
                     break;
             }
@@ -716,38 +730,45 @@ public class UIManager_GM : MonoBehaviour
     public void UpdateLanguage(int index)
     {
         indexLanguage = index;
-        switch (indexLanguage)
-        {
-            case 0:
-                // English
-                title.text = "WHO DO YOU WANT TO BE?";
-                break;
 
-            case 1:
-                // Italian
-                title.text = "CHI VUOI ESSERE?";
-                break;
+        Debug.Log(indexLanguage);
 
-            case 2:
-                // Portuguese
-                title.text = "QUEM QUERES SER?";
-                break;
+        index = 0;  // FOR TEST
 
-            case 3:
-                // Spanish
-                title.text = "QUIEN QUIERES SER?";
-                break;
+        title.sprite = titleSprites[index];
 
-            case 4:
-                // Swedish
-                title.text = "WHO DO YOU WANT TO BE?";
-                break;
+        /*  switch (indexLanguage)
+          {
+              case 0:
+                  // English
+                  title.text = "WHO DO YOU WANT TO BE?";
+                  break;
 
-            default:
-                // English
-                title.text = "WHO DO YOU WANT TO BE?";
-                break;
-        }
+              case 1:
+                  // Italian
+                  title.text = "CHI VUOI ESSERE?";
+                  break;
+
+              case 2:
+                  // Portuguese
+                  title.text = "QUEM QUERES SER?";
+                  break;
+
+              case 3:
+                  // Spanish
+                  title.text = "QUIEN QUIERES SER?";
+                  break;
+
+              case 4:
+                  // Swedish
+                  title.text = "WHO DO YOU WANT TO BE?";
+                  break;
+
+              default:
+                  // English
+                  title.text = "WHO DO YOU WANT TO BE?";
+                  break;
+          }*/
 
     }
 
@@ -758,6 +779,7 @@ public class UIManager_GM : MonoBehaviour
 
         if (recordManager.IsRecording)
         {
+            musicManager.ResumeMusic();
             buttonAnimation[buttonAnimation.clip.name].time = 0;
             buttonAnimation[buttonAnimation.clip.name].speed = 0;
             isRecording = false;
@@ -765,6 +787,7 @@ public class UIManager_GM : MonoBehaviour
         }
         else
         {
+            musicManager.StopMusic();
             buttonAnimation[buttonAnimation.clip.name].speed = 1;
             if (!buttonAnimation.isPlaying)
             {
@@ -802,10 +825,9 @@ public class UIManager_GM : MonoBehaviour
 
     }
 
-
-
     public void _UnPauseButtonClicked()
     {
+        musicManager.StopMusic();
         buttonAnimation[buttonAnimation.clip.name].speed = 1;
         panelStoppedRecordingMenu.SetActive(recordManager.IsRecording);
         recordManager.UnPauseRecording();
@@ -815,7 +837,6 @@ public class UIManager_GM : MonoBehaviour
 
     public void _SaveRecordButtonClicked()
     {
-
         recordManager.StopRecording();
     }
 

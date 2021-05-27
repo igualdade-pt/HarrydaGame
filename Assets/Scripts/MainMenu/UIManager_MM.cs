@@ -8,7 +8,7 @@ using UnityEngine.Video;
 public class UIManager_MM : MonoBehaviour
 {
     private MainMenuManager mainMenuManager;
-
+    private MusicManagerScript musicManager;
     [SerializeField]
     private GameObject panelMoviesMenu;
 
@@ -39,6 +39,38 @@ public class UIManager_MM : MonoBehaviour
 
     [SerializeField]
     private int timerVideoButton = 1;
+
+    [Header("Buttons TEXT")]
+    [Space]
+    [SerializeField]
+    private Sprite[] titleSprites;
+
+    [SerializeField]
+    private Sprite[] titleMoviesSprites;
+
+    [SerializeField]
+    private Sprite[] textButtonPublicBathSprites;
+
+    [SerializeField]
+    private Sprite[] textButtonSchoolSprites;
+
+    [SerializeField]
+    private Sprite[] textButtonMoviesSprites;
+
+    [SerializeField]
+    private Image title;
+
+    [SerializeField]
+    private Image titleMovie;
+
+    [SerializeField]
+    private Image textButtonPublicBath;
+
+    [SerializeField]
+    private Image textButtonSchool;
+
+    [SerializeField]
+    private Image textButtonMovies;
 
 
     // Buttons VideoPlayer
@@ -98,6 +130,8 @@ public class UIManager_MM : MonoBehaviour
     private void Start()
     {
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
+
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
     }
 
     private void Update()
@@ -106,7 +140,9 @@ public class UIManager_MM : MonoBehaviour
         {
             var videoToPlay = videoPlay.GetComponent<VideoPlayer>();
 
-            timeClip.text = Mathf.FloorToInt(((videoToPlay.frameCount / videoToPlay.frameRate) / 60) % 60).ToString("00") + ":" + Mathf.FloorToInt(((int)(videoToPlay.frameCount / videoToPlay.frameRate) - (int)(videoToPlay.frame / videoToPlay.frameRate)) % 60).ToString("00");
+            timeClip.text = Mathf.FloorToInt(((videoToPlay.frameCount / videoToPlay.frameRate) / 60) % 60).ToString("00") 
+                + ":" 
+                + Mathf.FloorToInt(((int)(videoToPlay.frameCount / videoToPlay.frameRate) - (int)(videoToPlay.frame / videoToPlay.frameRate)) % 60).ToString("00");
         }
     }
 
@@ -170,35 +206,7 @@ public class UIManager_MM : MonoBehaviour
         }
     }
 
-
-    public void _InformationButtonClicked()
-    {
-
-    }
-
-    public void _LanguageButtonClicked(int indexScene)
-    {
-        Debug.Log("Language Clicked, Index Scene: " + indexScene);
-
-        mainMenuManager.LoadScene(indexScene);
-    }
-
-    public void _AgeButtonClicked(int indexScene)
-    {
-        Debug.Log("Age Clicked, Index Scene: " + indexScene);
-
-        mainMenuManager.LoadScene(indexScene);
-    }
-
-    public void _BooksButtonClicked()
-    {
-
-    }
-
-    public void _SoundButtonClicked()
-    {
-
-    }
+       
 
     public void _SceneButtonClicked(int indexScene)
     {
@@ -227,13 +235,26 @@ public class UIManager_MM : MonoBehaviour
 
     public void UpdateLanguage(int indexLanguage)
     {
+        Debug.Log(indexLanguage);
 
+        indexLanguage = 0;  // FOR TEST
+
+        title.sprite = titleSprites[indexLanguage];
+
+        textButtonMovies.sprite = textButtonMoviesSprites[indexLanguage];
+
+        textButtonPublicBath.sprite = textButtonPublicBathSprites[indexLanguage];
+
+        textButtonSchool.sprite = textButtonSchoolSprites[indexLanguage];
+
+        titleMovie.sprite = titleMoviesSprites[indexLanguage];
     }
 
     public void _ReturnVideoButtonClicked()
     {
         if (videoPlayer_BG.activeSelf)
         {
+            musicManager.ResumeMusic();
             videoPlay.GetComponent<VideoPlayer>().Stop();
             videoPlayer_BG.SetActive(false);
             playButton.SetActive(true);
@@ -341,6 +362,8 @@ public class UIManager_MM : MonoBehaviour
         movie_BG.SetActive(true);
 
         var videoToPlay = videoPlay.GetComponent<VideoPlayer>();
+
+        musicManager.StopMusic();
 
         _PlayButtonClicked(videoToPlay);
     }

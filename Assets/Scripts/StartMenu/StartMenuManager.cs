@@ -55,6 +55,7 @@ public class StartMenuManager : MonoBehaviour
 
     public void LoadScene(int indexScene)
     {
+        gameInstance.CameFromMainMenu = true;
         SceneManager.LoadScene(indexScene);
     }
 
