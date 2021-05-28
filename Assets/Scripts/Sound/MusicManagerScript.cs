@@ -24,6 +24,8 @@ public class MusicManagerScript : MonoBehaviour
     [SerializeField]
     private AudioMixerSnapshot p4off;
 
+    [SerializeField]
+    private AudioClip cliptest;
 
     [SerializeField]
     float fadeTime = 8f;
@@ -59,8 +61,10 @@ public class MusicManagerScript : MonoBehaviour
 
         p1off.TransitionTo(0);
         p2off.TransitionTo(0);
-/*        p3off.TransitionTo(0);
-        p4off.TransitionTo(0);*/
+        /*        p3off.TransitionTo(0);
+                p4off.TransitionTo(0);*/
+
+        Debug.Log(cliptest.length);
 
         StartCoroutine(PlayNextMusic());
     }
@@ -130,13 +134,10 @@ public class MusicManagerScript : MonoBehaviour
         }
 
 
-
-        yield return new WaitForSeconds(clipTime - fadeTime - overlap);
-
-        PlayMusic(previousClipIndex++);
+        Debug.Log(clipTime);
 
 
-       /* yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(fadeTime);
 
         switch (previousClipIndex)
         {
@@ -150,7 +151,7 @@ public class MusicManagerScript : MonoBehaviour
                 //PlayMusic
                 nextPlayer.Stop();
                 break;
-*//*            case 2:
+/*            case 2:
                 nextPlayer = m_audio[2];
                 //PlayMusic
                 nextPlayer.Stop();
@@ -159,10 +160,14 @@ public class MusicManagerScript : MonoBehaviour
                 nextPlayer = m_audio[3];
                 //PlayMusic
                 nextPlayer.Stop();
-                break;*//*
-        }*/
-        
+                break;*/
+        }
 
+        yield return new WaitForSeconds(clipTime - fadeTime*2 - overlap);
+
+        PlayMusic(previousClipIndex++);
+
+        Debug.Log(" Next" );
     }
 
     public void PlayMusic(int musicIdex)

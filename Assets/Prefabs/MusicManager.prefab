@@ -53,8 +53,9 @@ MonoBehaviour:
   p3off: {fileID: 0}
   p4on: {fileID: 0}
   p4off: {fileID: 0}
-  fadeTime: 4
-  overlap: 2
+  cliptest: {fileID: 8300000, guid: 62cf052565aa0a349ac58c24faa0c68b, type: 3}
+  fadeTime: 6
+  overlap: 3
 --- !u!82 &464335990622365415
 AudioSource:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: baf4f6f6935ce0c44805ebddcd0b20b5, type: 2}
-  m_audioClip: {fileID: 8300000, guid: d7568d3b026befe41a462de47c21fa89, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 998dc292f0d756d4fb7737cb273cbdca, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1

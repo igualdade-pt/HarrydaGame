@@ -121,36 +121,15 @@ public class Player_S : MonoBehaviour
         {
             case 11:
                 anim.SetTrigger("specialJump");
-/*                if (easeType == LeanTweenType.animationCurve)
-                {
-                    LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(curve).setOnComplete(CanDoubleTapAgain);
-                }
-                else
-                {
-                    LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(easeType).setOnComplete(CanDoubleTapAgain);
-                }*/
+
                 PlaySFX(jumpClip);
                 break;
 
-/*            case 1:
-*//*                if (easeType == LeanTweenType.animationCurve)
-                {
-                    LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(curve).setOnComplete(CanDoubleTapAgain);
-                }
-                else
-                {
-                    LeanTween.moveY(gameObject, gameObject.transform.position.y + jumpHeight, timeAnim).setEase(easeType).setOnComplete(CanDoubleTapAgain);
-                }*//*
+            case 6:
+                anim.SetTrigger("armUp");
+
                 PlaySFX(jumpClip);
                 break;
-
-            case 2:
-
-                break;
-
-            case 3:
-
-                break;*/
 
             default:
                 Debug.Log("No Double Tap");

@@ -13,10 +13,10 @@ public class UIManager_SM : MonoBehaviour
     [Header("Buttons")]
     [Space]
     [SerializeField]
-    private Button soundButton;
+    private Image soundImage;
 
     [SerializeField]
-    private Sprite[] spriteOffOnSound;
+    private Sprite[] spritesOnOffSound;
 
     [SerializeField]
     private GameObject buttonCloseBooksPanel;
@@ -155,6 +155,7 @@ public class UIManager_SM : MonoBehaviour
             Debug.Log("sound is OFF, value:" + isSoundActive);
             //audioManager.SetVolume(isSoundActive);
             isSoundActive = false;
+            soundImage.sprite = spritesOnOffSound[1];
         }
         else
         {
@@ -162,6 +163,7 @@ public class UIManager_SM : MonoBehaviour
             Debug.Log("sound is ON, value:" + isSoundActive);
             //audioManager.SetVolume(isSoundActive);
             isSoundActive = true;
+            soundImage.sprite = spritesOnOffSound[0];
         }
     }
 
