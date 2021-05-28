@@ -31,6 +31,8 @@ public class UIManager_LM : MonoBehaviour
 
     private LanguageMenuManager languageMenuManager;
 
+    private AudioManager audioManager;
+
     private int currentIndexFlag;
     private float originalY;
     private int previousIndexLanguage;
@@ -38,6 +40,8 @@ public class UIManager_LM : MonoBehaviour
     private void Start()
     {
         languageMenuManager = FindObjectOfType<LanguageMenuManager>().GetComponent<LanguageMenuManager>();
+
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
     }
 
     public void InitUpdateFlag(int indexLanguage)
@@ -285,6 +289,9 @@ public class UIManager_LM : MonoBehaviour
     public void _ConfirmButton()
     {
         languageMenuManager.LoadLevel();
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
     }
 
     public int ChangeCurrentIndexFlag
@@ -294,6 +301,9 @@ public class UIManager_LM : MonoBehaviour
 
     public void _CountryButtonClicked(int indexLanguage)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         LeanTween.cancel(flags[previousIndexLanguage]);
         flags[previousIndexLanguage].LeanScale(new Vector3(1f, 1f, 1f), 0.2f);
         flags[previousIndexLanguage].LeanMoveY(originalY, 0.2f);

@@ -53,9 +53,12 @@ MonoBehaviour:
   p3off: {fileID: 0}
   p4on: {fileID: 0}
   p4off: {fileID: 0}
-  cliptest: {fileID: 8300000, guid: 62cf052565aa0a349ac58c24faa0c68b, type: 3}
+  musicOn: {fileID: 24500006, guid: 3711cb9eca327d84f9ccfd70f1338e28, type: 2}
+  musicOff: {fileID: -5189443677813156985, guid: 3711cb9eca327d84f9ccfd70f1338e28, type: 2}
   fadeTime: 6
   overlap: 3
+  fadeTimeStopMusic: 2
+  fadeTimeResumeMusic: 2
 --- !u!82 &464335990622365415
 AudioSource:
   m_ObjectHideFlags: 0

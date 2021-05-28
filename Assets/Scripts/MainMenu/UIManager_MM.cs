@@ -9,6 +9,7 @@ public class UIManager_MM : MonoBehaviour
 {
     private MainMenuManager mainMenuManager;
     private MusicManagerScript musicManager;
+    private AudioManager audioManager;
     [SerializeField]
     private GameObject panelMoviesMenu;
 
@@ -132,6 +133,8 @@ public class UIManager_MM : MonoBehaviour
         mainMenuManager = FindObjectOfType<MainMenuManager>().GetComponent<MainMenuManager>();
 
         musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
+
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -210,15 +213,30 @@ public class UIManager_MM : MonoBehaviour
 
     public void _SceneButtonClicked(int indexScene)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         mainMenuManager.LoadAsyncGamePlay(indexScene);
     }
 
     public void _SettingsButtonClicked(int index)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         mainMenuManager.LoadScene(index);
     }
 
     public void _MoviesButtonClicked()
+    {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
+        panelMainMenu.SetActive(false);
+        panelMoviesMenu.SetActive(true);
+    }
+
+    public void OpenMovies()
     {
         panelMainMenu.SetActive(false);
         panelMoviesMenu.SetActive(true);
@@ -228,6 +246,9 @@ public class UIManager_MM : MonoBehaviour
     {
         if (!videoPlayer_BG.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             panelMainMenu.SetActive(true);
             panelMoviesMenu.SetActive(false);
         }
@@ -254,6 +275,9 @@ public class UIManager_MM : MonoBehaviour
     {
         if (videoPlayer_BG.activeSelf)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             musicManager.ResumeMusic();
             videoPlay.GetComponent<VideoPlayer>().Stop();
             videoPlayer_BG.SetActive(false);
@@ -267,12 +291,18 @@ public class UIManager_MM : MonoBehaviour
 
     private void _DeleteVideoButtonClicked(Button button)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         panelDeleteMenu.SetActive(true);
         yesButton.onClick.AddListener(() => _YesVideoButtonClicked(button));
     }
 
     private void _YesVideoButtonClicked(Button button)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         var url = button.GetComponentInChildren<VideoPlayer>().url;
 
         if (File.Exists(url))
@@ -289,12 +319,18 @@ public class UIManager_MM : MonoBehaviour
 
     public void _NoVideoButtonClicked()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         panelDeleteMenu.SetActive(false);
         yesButton.onClick.RemoveAllListeners();
     }
 
     private void _ShareVideoButtonClicked(Button button)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         var url = button.GetComponentInChildren<VideoPlayer>().url;
 
         if (File.Exists(url))
@@ -312,6 +348,11 @@ public class UIManager_MM : MonoBehaviour
     {
         if (!File.Exists(button.GetComponentInChildren<VideoPlayer>().url))
             return;
+
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
+        musicManager.StopMusic();
 
         var rectTransform = button.GetComponent<RectTransform>();
 
@@ -362,8 +403,6 @@ public class UIManager_MM : MonoBehaviour
         movie_BG.SetActive(true);
 
         var videoToPlay = videoPlay.GetComponent<VideoPlayer>();
-
-        musicManager.StopMusic();
 
         _PlayButtonClicked(videoToPlay);
     }
@@ -421,6 +460,9 @@ public class UIManager_MM : MonoBehaviour
         Debug.Log("Pausa");
         if (canPlayVideo & videoToPlay.isPlaying)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             pauseButton.SetActive(false);
             resumeButton.SetActive(true);
             videoToPlay.Pause();
@@ -433,6 +475,9 @@ public class UIManager_MM : MonoBehaviour
         Debug.Log("Resume");
         if (canPlayVideo & videoToPlay.isPaused)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             pauseButton.SetActive(true);
             resumeButton.SetActive(false);
             videoToPlay.Play();
@@ -444,6 +489,9 @@ public class UIManager_MM : MonoBehaviour
         Debug.Log("Replay");
         if (canPlayVideo)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
             playButton.SetActive(false);
             pauseButton.SetActive(true);
             resumeButton.SetActive(false);

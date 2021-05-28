@@ -10,7 +10,7 @@ public class UIManager_GM : MonoBehaviour
     private RecordManager recordManager;
 
     private MusicManagerScript musicManager;
-
+    private AudioManager audioManager;
     [Header("Buttons TEXT")]
     [Space]
     [SerializeField]
@@ -127,7 +127,7 @@ public class UIManager_GM : MonoBehaviour
 
         musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
 
-
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
     }
 
     public void UpdateSceneCharacter(int value)
@@ -193,6 +193,7 @@ public class UIManager_GM : MonoBehaviour
         }
         else
         {
+            currentIndexCharacter = 1;
             t = -1;
             index = 0;
             for (int i = 0; i < xCharacters[indexGame].Length; i++)
@@ -232,6 +233,9 @@ public class UIManager_GM : MonoBehaviour
 
         if (indexGame == 1)
         {
+            // Play Sound
+            audioManager.PlayClip(1, 0.6f);
+            // ****
             for (int i = 0; i < tCharacters[indexGame].Length; i++)
             {
                 if (t > 0)
@@ -469,14 +473,22 @@ public class UIManager_GM : MonoBehaviour
                 if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
                 {
                     currentIndexCharacter++;
+                    // Play Sound
+                    audioManager.PlayClip(1, 0.6f);
+                    // ****
                 }
                 else
                 {
                     currentIndexCharacter = tCharacters[indexGame].Length - 1;
                 }
 
-                Debug.Log("Current Index Character: " + currentIndexCharacter);
-                UpdateCharacter(currentIndexCharacter, true);
+                if (currentIndexCharacter <= tCharacters[indexGame].Length - 1)
+                {
+                    UpdateCharacter(currentIndexCharacter, true);
+                }
+
+
+                Debug.Log("Current 'Public Bath' Index Character: " + currentIndexCharacter);
             }
 
 
@@ -510,14 +522,22 @@ public class UIManager_GM : MonoBehaviour
                 if (currentIndexCharacter > 0)
                 {
                     currentIndexCharacter--;
+                    // Play Sound
+                    audioManager.PlayClip(1, 0.6f);
+                    // ****
                 }
                 else
                 {
                     currentIndexCharacter = 0;
                 }
 
-                Debug.Log("Current Index Character: " + currentIndexCharacter);
-                UpdateCharacter(currentIndexCharacter, false);
+                if (currentIndexCharacter >= 0)
+                {
+                    UpdateCharacter(currentIndexCharacter, false);
+                }
+
+                Debug.Log("Current 'Public Bath' Index Character: " + currentIndexCharacter);
+                
 
                 //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
             }
@@ -544,45 +564,112 @@ public class UIManager_GM : MonoBehaviour
 
         if (canDrag)
         {
-            if (positiveDrag)
+            if (indexGame == 1)
             {
-                if (canChange)
+                if (positiveDrag)
                 {
-                    canChange = false;
-                    if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
+                    if (canChange)
                     {
-                        currentIndexCharacter++;
-                    }
-                    else
-                    {
-                        currentIndexCharacter = 0;
-                    }
+                        canChange = false;
+                        if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
+                        {
+                            currentIndexCharacter++;
 
-                    Debug.Log("Current Index Character: " + currentIndexCharacter);
-                    UpdateCharacter(currentIndexCharacter, true);
+                        }
+                        else
+                        {
+                            currentIndexCharacter = 0;
+                        }
 
-                    //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                        Debug.Log("Current Index Character: " + currentIndexCharacter);
+                        UpdateCharacter(currentIndexCharacter, true);
+
+                        //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                    }
                 }
+                else
+                {
+                    if (canChange)
+                    {
+                        canChange = false;
+                        if (currentIndexCharacter > 0)
+                        {
+                            currentIndexCharacter--;
+                        }
+                        else
+                        {
+                            currentIndexCharacter = tCharacters[indexGame].Length - 1;
+                        }
+
+                        Debug.Log("Current Index Character: " + currentIndexCharacter);
+                        UpdateCharacter(currentIndexCharacter, false);
+
+                        //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                    }
+
+                }
+
             }
             else
             {
-                if (canChange)
+                if (positiveDrag)
                 {
-                    canChange = false;
-                    if (currentIndexCharacter > 0)
+                    if (canChange)
                     {
-                        currentIndexCharacter--;
-                    }
-                    else
-                    {
-                        currentIndexCharacter = tCharacters[indexGame].Length - 1;
-                    }
+                        canChange = false;
+                        if (currentIndexCharacter < tCharacters[indexGame].Length - 1)
+                        {
+                            currentIndexCharacter++;
+                            // Play Sound
+                            audioManager.PlayClip(1, 0.6f);
+                            // ****
+                        }
+                        else
+                        {
+                            currentIndexCharacter = tCharacters[indexGame].Length - 1;
+                        }
 
-                    Debug.Log("Current Index Character: " + currentIndexCharacter);
-                    UpdateCharacter(currentIndexCharacter, false);
+                        if (currentIndexCharacter <= tCharacters[indexGame].Length - 1)
+                        {
+                            UpdateCharacter(currentIndexCharacter, true);
+                        }
 
-                    //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                        Debug.Log("Current Index Character: " + currentIndexCharacter);
+                        
+
+                        //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                    }
                 }
+                else
+                {
+                    if (canChange)
+                    {
+                        canChange = false;
+                        if (currentIndexCharacter > 0)
+                        {
+                            currentIndexCharacter--;
+                            // Play Sound
+                            audioManager.PlayClip(1, 0.6f);
+                            // ****
+                        }
+                        else
+                        {
+                            currentIndexCharacter = 0;
+                        }
+
+                        if (currentIndexCharacter >= 0)
+                        {
+                            UpdateCharacter(currentIndexCharacter, false);
+                        }
+
+                        Debug.Log("Current Index Character: " + currentIndexCharacter);
+                        
+
+                        //languageMenuManager.ChangeLanguageIndex = currentIndexCharacter;
+                    }
+
+                }
+
             }
         }
 
@@ -607,16 +694,25 @@ public class UIManager_GM : MonoBehaviour
             switch (charactersSelected.Contains(index))
             {
                 case true:
+                    // Play Sound
+                    audioManager.PlayClip(0, 0.6f);
+                    // ****
                     charactersSelected.Remove(index);
                     break;
 
                 case false:
                     if (charactersSelected.Count < 2)
                     {
+                        // Play Sound
+                        audioManager.PlayClip(0, 0.6f);
+                        // ****
                         charactersSelected.Add(index);
                     }
                     else
                     {
+                        // Play Sound
+                        audioManager.PlayClip(1, 0.6f);
+                        // ****
                         activeImage = false;
                         switch (indexLanguage)
                         {
@@ -678,6 +774,10 @@ public class UIManager_GM : MonoBehaviour
     {
         if (charactersSelected.Count != 0)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            musicManager.StopMusic();
             panelSelectCharacterMenu.SetActive(false);
             panelGameplay.SetActive(true);
             charactersSelected.TrimExcess();
@@ -692,6 +792,9 @@ public class UIManager_GM : MonoBehaviour
         }
         else
         {
+            // Play Sound
+            audioManager.PlayClip(1, 0.6f);
+            // ****
             switch (indexLanguage)
             {
                 case 0:
@@ -775,19 +878,21 @@ public class UIManager_GM : MonoBehaviour
 
     public void _RecordButtonClicked()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         panelStoppedRecordingMenu.SetActive(recordManager.IsRecording);
+
 
         if (recordManager.IsRecording)
         {
-            musicManager.ResumeMusic();
             buttonAnimation[buttonAnimation.clip.name].time = 0;
             buttonAnimation[buttonAnimation.clip.name].speed = 0;
             isRecording = false;
             StopAllCoroutines();
         }
         else
-        {
-            musicManager.StopMusic();
+        {            
             buttonAnimation[buttonAnimation.clip.name].speed = 1;
             if (!buttonAnimation.isPlaying)
             {
@@ -827,7 +932,9 @@ public class UIManager_GM : MonoBehaviour
 
     public void _UnPauseButtonClicked()
     {
-        musicManager.StopMusic();
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         buttonAnimation[buttonAnimation.clip.name].speed = 1;
         panelStoppedRecordingMenu.SetActive(recordManager.IsRecording);
         recordManager.UnPauseRecording();
@@ -837,11 +944,17 @@ public class UIManager_GM : MonoBehaviour
 
     public void _SaveRecordButtonClicked()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         recordManager.StopRecording();
     }
 
     public void _ReturnButtonClicked(int indexScene)
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         gameplayManager.LoadScene(indexScene, false);
     }
 
@@ -849,6 +962,10 @@ public class UIManager_GM : MonoBehaviour
     {
         if (!recordManager.IsRecording)
         {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            musicManager.ResumeMusic();
             panelStoppedRecordingMenu.SetActive(false);
             panelGameplay.SetActive(false);
             panelSelectCharacterMenu.SetActive(true);
@@ -857,12 +974,19 @@ public class UIManager_GM : MonoBehaviour
 
     public void _RecordAgainButtonClicked()
     {
+        // Play Sound
+        audioManager.PlayClip(0, 0.6f);
+        // ****
         panelStoppedRecordingMenu.SetActive(false);
     }
 
 
     public void MovieSaved()
     {
+        // Play Sound
+        audioManager.PlayClip(2, 0.6f);
+        // ****
+        musicManager.ResumeMusic();
         gameplayManager.LoadScene(menuMovieSceneIndex, true);
     }
 }

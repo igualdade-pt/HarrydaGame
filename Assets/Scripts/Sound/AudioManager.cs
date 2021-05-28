@@ -5,7 +5,8 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    private MixerController audioMixer;
+    [SerializeField]
+    private AudioMixer mixer;
 
     private float masterVolume;
     private float musicVolume;
@@ -18,21 +19,27 @@ public class AudioManager : MonoBehaviour
     [Header("Sound")]
     [Space]
     [SerializeField]
-    private AudioClip buttonClip;
+    private AudioClip[] buttonClip;
 
     [SerializeField]
     private float buttonVolume = 0.2f;
+    private float maxVolumeSFX;
+    private float maxVolumeMusic;
 
     private void Start()
     {
-        audioMixer = FindObjectOfType<MixerController>().GetComponent<MixerController>();
         masterVolume = 1f;
         currentVolume = masterVolume;
-        audioMixer.SetMaster(masterVolume);
-        musicVolume = 1f;
-        audioMixer.SetMusic(musicVolume);
-        soundFXVolume = 1f;
-        audioMixer.SetSFX(soundFXVolume);
+        SetMaster(masterVolume);
+
+        mixer.GetFloat("VolumeMusic", out float x);
+        maxVolumeMusic = x;
+        mixer.SetFloat("VolumeMusic", maxVolumeMusic);
+
+        mixer.GetFloat("VolumeSFX", out float y);
+        maxVolumeSFX = y;
+        mixer.SetFloat("VolumeSFX", maxVolumeSFX);
+
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -128,23 +135,41 @@ public class AudioManager : MonoBehaviour
     }
     */
 
-    public void PlayClip(AudioClip audioClip, float volumeScale)
+    public void PlayClip(int audioClipIndex, float volumeScale)
     {
-        audioSource.PlayOneShot(audioClip, volumeScale);
+        audioSource.PlayOneShot(buttonClip[audioClipIndex], volumeScale);
     }
 
-    public void SetVolume(bool turnOff)
+    public void SetMasterVolume(bool turnOff)
     {
         switch (turnOff)
         {
             case true:
                 masterVolume = 0f;
-                audioMixer.SetMaster(masterVolume);
+                SetMaster(masterVolume);
                 break;
             case false:
                 masterVolume = currentVolume;
-                audioMixer.SetMaster(masterVolume);
+                SetMaster(masterVolume);
                 break;
         }
+    }
+
+
+    /// Mixer Controller
+    //sqrt is used for mapping closer to Unity mixer faders
+    private void SetSFX(float x)
+    {
+        mixer.SetFloat("VolumeSFX", Mathf.Lerp(-80.0f, maxVolumeSFX, Mathf.Sqrt(x)));
+    }
+
+    private void SetMusic(float x)
+    {
+        mixer.SetFloat("VolumeMusic", Mathf.Lerp(-80.0f, maxVolumeMusic, Mathf.Sqrt(x)));
+    }
+
+    private void SetMaster(float x)
+    {
+        mixer.SetFloat("VolumeMaster", Mathf.Lerp(-80.0f, 0.0f, Mathf.Sqrt(x)));
     }
 }

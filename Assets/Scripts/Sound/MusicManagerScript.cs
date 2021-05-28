@@ -25,12 +25,20 @@ public class MusicManagerScript : MonoBehaviour
     private AudioMixerSnapshot p4off;
 
     [SerializeField]
-    private AudioClip cliptest;
+    private AudioMixerSnapshot musicOn;
+    [SerializeField]
+    private AudioMixerSnapshot musicOff;
 
     [SerializeField]
     float fadeTime = 8f;
     [SerializeField]
     float overlap = 6f;
+
+    [SerializeField]
+    float fadeTimeStopMusic = 3f;
+
+    [SerializeField]
+    float fadeTimeResumeMusic = 3f;
 
     private AudioSource m_audio1;
     private AudioSource m_audio2;
@@ -64,7 +72,6 @@ public class MusicManagerScript : MonoBehaviour
         /*        p3off.TransitionTo(0);
                 p4off.TransitionTo(0);*/
 
-        Debug.Log(cliptest.length);
 
         StartCoroutine(PlayNextMusic());
     }
@@ -134,8 +141,6 @@ public class MusicManagerScript : MonoBehaviour
         }
 
 
-        Debug.Log(clipTime);
-
 
         yield return new WaitForSeconds(fadeTime);
 
@@ -184,24 +189,53 @@ public class MusicManagerScript : MonoBehaviour
 
     public void StopMusic()
     {
+        StartCoroutine(StopMusicByFade());     
+    }
+
+    private IEnumerator StopMusicByFade()
+    {
         AudioSource nextPlayer;
+        
+       musicOff.TransitionTo(fadeTimeStopMusic);
+        Debug.Log(fadeTimeStopMusic);
+
+        yield return new WaitForSeconds(fadeTimeStopMusic);
 
         for (int i = 0; i < 2; i++)
         {
             nextPlayer = m_audio[i];
             nextPlayer.Pause();
-        }            
+        }
     }
 
     public void ResumeMusic()
     {
         AudioSource nextPlayer;
 
+        musicOn.TransitionTo(fadeTimeResumeMusic);
+
         for (int i = 0; i < 2; i++)
         {
             nextPlayer = m_audio[i];
             nextPlayer.UnPause();
         }
+
+        /*StartCoroutine(ResumeMusicByFade());*/
+    }
+
+    private IEnumerator ResumeMusicByFade()
+    {
+        AudioSource nextPlayer;
+
+        musicOn.TransitionTo(fadeTimeResumeMusic);
+
+        for (int i = 0; i < 2; i++)
+        {
+            nextPlayer = m_audio[i];
+            nextPlayer.UnPause();
+        }
+
+        yield return null;
     }
 
     // For TEST

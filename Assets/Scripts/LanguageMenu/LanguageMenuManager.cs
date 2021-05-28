@@ -22,6 +22,9 @@ public class LanguageMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject musicManager;
 
+    [SerializeField]
+    private GameObject audioManager;
+
 
 
     private void Awake()
@@ -37,11 +40,20 @@ public class LanguageMenuManager : MonoBehaviour
         // For test
         PlayerPrefs.DeleteAll();
 
+        // Instantiate Music Manager Prefab
         if (FindObjectOfType<MusicManagerScript>() != null)
             return;
 
         var mM = Instantiate(musicManager);
         DontDestroyOnLoad(mM);
+
+        // Instantiate Audio Manager Prefab
+        if (FindObjectOfType<AudioManager>() != null)
+            return;
+
+        var aM = Instantiate(audioManager);
+        DontDestroyOnLoad(aM);
+
 
 
     }
@@ -58,7 +70,9 @@ public class LanguageMenuManager : MonoBehaviour
         Screen.orientation = ScreenOrientation.AutoRotation;
 
         // Orientation Screen
-        Screen.SetResolution(1920, 1080, true);
+        //Screen.SetResolution(1920, 1080, true);
+
+        Screen.fullScreen = false;
 
         // Permission
         #if PLATFORM_ANDROID

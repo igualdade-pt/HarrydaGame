@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indexSceneToLoad: 2
   musicManager: {fileID: 7285077363648145254, guid: 36f12d8818cc0da4899b1142bcc67e07, type: 3}
+  audioManager: {fileID: 2763355254626296936, guid: b5a2a8c4ad626234ba66b131bc11cafa, type: 3}
 --- !u!1 &36763568
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,7 +66,7 @@ public class MainMenuManager : MonoBehaviour
 
         if (gameInstance.IsRecorded)
         {
-            uiManager_MM._MoviesButtonClicked();
+            uiManager_MM.OpenMovies();
             gameInstance.IsRecorded = false;
         }   
        
