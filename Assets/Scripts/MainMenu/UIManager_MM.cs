@@ -10,11 +10,11 @@ public class UIManager_MM : MonoBehaviour
     private MainMenuManager mainMenuManager;
     private MusicManagerScript musicManager;
     private AudioManager audioManager;
+
+    [Header("Properties")]
+    [Space]
     [SerializeField]
     private GameObject panelMoviesMenu;
-
-    [SerializeField]
-    private Text text;
 
     [SerializeField]
     private GameObject panelMainMenu;
@@ -24,6 +24,12 @@ public class UIManager_MM : MonoBehaviour
 
     [SerializeField]
     private GameObject ReturnButtonFromMovie;
+
+    [SerializeField]
+    private Text textError;
+
+    [SerializeField]
+    private GameObject loading;
 
     [Space]
     [SerializeField]
@@ -381,12 +387,12 @@ public class UIManager_MM : MonoBehaviour
         // Position and Scale Animation
         if (easeType == LeanTweenType.animationCurve)
         {
-            LeanTween.move(videoRectTransform, Vector3.zero, timerVideoButton).setEase(curve).setOnComplete(PlayButtonReady);
+            LeanTween.move(videoRectTransform, new Vector3 (-20, 0,0), timerVideoButton).setEase(curve).setOnComplete(PlayButtonReady);
             LeanTween.size(videoRectTransform, new Vector2(1600, 900), timerVideoButton).setEase(curve);
         }
         else
         {
-            LeanTween.move(videoRectTransform, Vector3.zero, timerVideoButton).setEase(easeType).setOnComplete(PlayButtonReady);
+            LeanTween.move(videoRectTransform, new Vector3(-20, 0, 0), timerVideoButton).setEase(easeType).setOnComplete(PlayButtonReady);
             LeanTween.size(videoRectTransform, new Vector2(1600, 900), timerVideoButton).setEase(easeType);
         }
 
@@ -507,7 +513,7 @@ public class UIManager_MM : MonoBehaviour
 
     private void Video_errorReceived(VideoPlayer source, string message)
     {
-        text.text = message;
+        textError.text = message;
     }
 
 }

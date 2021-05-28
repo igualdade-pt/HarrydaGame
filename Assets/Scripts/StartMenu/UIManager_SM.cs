@@ -8,7 +8,7 @@ public class UIManager_SM : MonoBehaviour
 {
     private StartMenuManager startMenuManager;
 
-    //private AudioManager audioManager;
+    private AudioManager audioManager;
 
     [Header("Buttons")]
     [Space]
@@ -33,13 +33,14 @@ public class UIManager_SM : MonoBehaviour
     private GameObject booksPanel;
 
     [SerializeField]
+    private GameObject allBooksPanel;
+
+    [SerializeField]
     private GameObject buttonsBooksPanel;
 
     [SerializeField]
-    private GameObject allBooksPanel;
+    private GameObject gamePanel;
 
-
-    private AudioManager audioManager;
 
     private int indexBookSelected;
 
@@ -49,6 +50,8 @@ public class UIManager_SM : MonoBehaviour
     {
         informationPanel.SetActive(false);
         booksPanel.SetActive(false);
+        gamePanel.SetActive(false);
+        soundImage.sprite = spritesOnOffSound[0];
 
         for (int i = 0; i < buttonBookSelectedPanel.Length; i++)
         {
@@ -150,6 +153,7 @@ public class UIManager_SM : MonoBehaviour
         }
     }
 
+
     public void _CloseBookButtonSelectedClicked()
     {
         if (booksPanel.activeSelf)
@@ -162,6 +166,28 @@ public class UIManager_SM : MonoBehaviour
             buttonsBooksPanel.SetActive(false);
             buttonsBooksPanel.SetActive(true);
             buttonCloseBooksPanel.SetActive(true);
+        }
+    }
+
+    public void _GamesButtonClicked()
+    {
+        if (!gamePanel.activeSelf)
+        {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            gamePanel.SetActive(true);
+        }
+    }
+
+    public void _CloseGamesButtonClicked()
+    {
+        if (gamePanel.activeSelf)
+        {
+            // Play Sound
+            audioManager.PlayClip(0, 0.6f);
+            // ****
+            gamePanel.SetActive(false);
         }
     }
 

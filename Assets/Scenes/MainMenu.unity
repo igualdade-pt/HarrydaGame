@@ -3527,10 +3527,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelMoviesMenu: {fileID: 392745738}
-  text: {fileID: 238000505}
   panelMainMenu: {fileID: 148232951}
   panelDeleteMenu: {fileID: 1277608579}
   ReturnButtonFromMovie: {fileID: 859005509}
+  textError: {fileID: 0}
+  loading: {fileID: 0}
   videoButton: {fileID: 7732036401912330319, guid: d7f03e6c3c898a541b0e78a7ccd64c46, type: 3}
   parentVideoButtonTransform: {fileID: 873706801}
   easeType: 27
