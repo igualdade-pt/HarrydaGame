@@ -288,10 +288,10 @@ public class UIManager_LM : MonoBehaviour
 
     public void _ConfirmButton()
     {
-        languageMenuManager.LoadLevel();
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
         // ****
+        languageMenuManager.LoadLevel();        
     }
 
     public int ChangeCurrentIndexFlag

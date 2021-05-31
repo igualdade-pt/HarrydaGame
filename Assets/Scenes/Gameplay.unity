@@ -193,9 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &7466608
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -488,9 +486,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &144489843
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1086,9 +1082,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &208850516
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1614,9 +1608,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &331446726
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1944,9 +1936,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &483934458
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2025,9 +2015,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &486010080
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3510,9 +3498,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &1073156306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3819,9 +3805,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &1210216593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4176,9 +4160,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &1386620465
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4611,9 +4593,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &1495701800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5774,9 +5754,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &1724221701
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6439,9 +6417,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &1826443328
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7380,9 +7356,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &2136364686
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7671,9 +7645,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
-
-    Selected'
+  m_Text: Selected
 --- !u!222 &2141901241
 CanvasRenderer:
   m_ObjectHideFlags: 0
