@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class UIManager_GM : MonoBehaviour
 {
     private GameplayManager gameplayManager;
-
     private RecordManager recordManager;
-
     private MusicManagerScript musicManager;
     private AudioManager audioManager;
+
     [Header("Buttons TEXT")]
     [Space]
     [SerializeField]
@@ -19,7 +18,7 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private Image title;
 
-    [Header("Gameplay")]
+    [Header("Characer Select")]
     [Space]
     [SerializeField]
     private GameObject[] charactersPool;
@@ -71,6 +70,11 @@ public class UIManager_GM : MonoBehaviour
     private int indexGame;
     private List<int> charactersSelected = new List<int>(12);
 
+    [Header("Properties")]
+    [Space]
+    [SerializeField]
+    private GameObject panelLoading;
+
     [SerializeField]
     private GameObject panelSelectCharacterMenu;
 
@@ -114,6 +118,7 @@ public class UIManager_GM : MonoBehaviour
 
     private void Start()
     {
+        panelLoading.SetActive(false);
         panelSelectCharacterMenu.SetActive(true);
         panelGameplay.SetActive(false);
         panelStoppedRecordingMenu.SetActive(false);
@@ -944,6 +949,7 @@ public class UIManager_GM : MonoBehaviour
 
     public void _SaveRecordButtonClicked()
     {
+        panelLoading.SetActive(true);
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
         // ****
@@ -987,6 +993,7 @@ public class UIManager_GM : MonoBehaviour
         audioManager.PlayClip(2, 0.6f);
         // ****
         musicManager.ResumeMusic();
-        gameplayManager.LoadScene(menuMovieSceneIndex, true);
+        gameplayManager.LoadAsyncGamePlay(menuMovieSceneIndex, true);
+        //gameplayManager.LoadScene(menuMovieSceneIndex, true);
     }
 }

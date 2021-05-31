@@ -87,6 +87,8 @@ public class MainMenuManager : MonoBehaviour
 
     private IEnumerator StartLoadAsyncScene(int indexGameplayScene)
     {
+        yield return new WaitForSeconds(3f);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(indexGameplayScene);
 
         // Wait until the asynchronous scene fully loads

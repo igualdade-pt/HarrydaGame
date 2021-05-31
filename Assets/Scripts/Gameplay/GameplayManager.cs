@@ -119,13 +119,16 @@ public class GameplayManager : MonoBehaviour
         SceneManager.LoadScene(indexScene);
     }
 
-    public void LoadAsyncGamePlay(int indexScene)
+    public void LoadAsyncGamePlay(int indexScene, bool backToMenuMovies)
     {
+        gameInstance.IsRecorded = backToMenuMovies;
         StartCoroutine(StartLoadAsyncScene(indexScene));
     }
 
     private IEnumerator StartLoadAsyncScene(int indexGameplayScene)
     {
+        yield return new WaitForSeconds(3f);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(indexGameplayScene);
 
         // Wait until the asynchronous scene fully loads

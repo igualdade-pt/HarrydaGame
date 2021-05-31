@@ -14,6 +14,9 @@ public class UIManager_MM : MonoBehaviour
     [Header("Properties")]
     [Space]
     [SerializeField]
+    private GameObject panelLoading;
+
+    [SerializeField]
     private GameObject panelMoviesMenu;
 
     [SerializeField]
@@ -28,8 +31,6 @@ public class UIManager_MM : MonoBehaviour
     [SerializeField]
     private Text textError;
 
-    [SerializeField]
-    private GameObject loading;
 
     [Space]
     [SerializeField]
@@ -129,6 +130,7 @@ public class UIManager_MM : MonoBehaviour
         videoPlayer_BG.SetActive(false);
         ReturnButtonFromMovie.SetActive(false);
         timeClip.gameObject.SetActive(false);
+        panelLoading.SetActive(false);
 
         movie_BG.SetActive(false);
     }
@@ -222,6 +224,7 @@ public class UIManager_MM : MonoBehaviour
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
         // ****
+        panelLoading.SetActive(true);
         mainMenuManager.LoadAsyncGamePlay(indexScene);
     }
 
