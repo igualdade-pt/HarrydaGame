@@ -69,6 +69,8 @@ public class Book : MonoBehaviour {
 
     private bool canFlipPage = true;
 
+    private AudioManager audioManager;
+
     void Start()
     {
         if (!canvas) canvas=GetComponentInParent<Canvas>();
@@ -96,6 +98,7 @@ public class Book : MonoBehaviour {
         ShadowLTR.rectTransform.sizeDelta = new Vector2(pageWidth, shadowPageHeight);
         ShadowLTR.rectTransform.pivot = new Vector2(0, (pageWidth / 2) / shadowPageHeight);
 
+        audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
     }
 
     private void CalcCurlCriticalPoints()
@@ -356,6 +359,9 @@ public class Book : MonoBehaviour {
     {
         if (pageDragging)
         {
+            // Play Sound
+            audioManager.PlayClip(4, 0.6f);
+            // ****
             pageDragging = false;
             float distanceToLeft = Vector2.Distance(c, ebl);
             float distanceToRight = Vector2.Distance(c, ebr);

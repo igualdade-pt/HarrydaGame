@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e02277223e235e4e96fbb2357cfa503, type: 3}
   - {fileID: 8300000, guid: be01fb91daeb0614b901a2933312d828, type: 3}
   - {fileID: 8300000, guid: 2b28f77d5c14cfc41a360dcb1a45da1f, type: 3}
+  - {fileID: 8300000, guid: f1009695bdbdd034f846fb77eb021853, type: 3}
   buttonVolume: 0.2
 --- !u!82 &7318535270373748891
 AudioSource:
