@@ -169,15 +169,16 @@ public class UIManager_MM : MonoBehaviour
             }
         }
 
+        Debug.Log(Application.persistentDataPath);
 
         if (Directory.Exists(Application.persistentDataPath))
         {
             var videosPath = Directory.GetFiles(Application.persistentDataPath);
 
-            if (videosPath.Length == 0)
-                return;
+            /*if (videosPath.Length == 0)
+                return;*/
 
-            for (int y = videosPath.Length - 1; y > 0; y--)
+            for (int y = videosPath.Length - 1; y >= 0; y--)
             {
                 if (File.Exists(videosPath[y]))
                 {
