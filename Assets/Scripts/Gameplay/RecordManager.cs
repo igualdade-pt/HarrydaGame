@@ -29,10 +29,6 @@ public class RecordManager : MonoBehaviour
 
     private bool isRecording = false;
 
-
-    [SerializeField]
-    private AudioClip clip1;
-
     private UIManager_GM uiManager_GM;
 
     private IEnumerator Start()
