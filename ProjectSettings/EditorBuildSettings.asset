@@ -8,12 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LanguageMenu.unity
     guid: 94e36f51acd73d14faa911bae3486861
-  - enabled: 0
-    path: Assets/Scenes/AgeMenu.unity
-    guid: 5b9df75fccbb8e542a23f715d2b87ecb
   - enabled: 1
     path: Assets/Scenes/SettingsMenu.unity
-    guid: a50a02d80cb912c44b531613ade01421
+    guid: 9bec60a1a239ef84bb579c45ba1d681e
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 86c64737c14a779419372322d8ef2475

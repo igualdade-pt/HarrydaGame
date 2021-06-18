@@ -50,16 +50,48 @@ public class UIManager_GM : MonoBehaviour
     [SerializeField]
     private float timeAnim = 0.8f;
 
+    [Header("Text")]
+    [Space]
     [SerializeField]
-    private string[] textCharacterNamesForPublicBath;
+    private string[] textCharacterNamesForPublicBath_EN;
 
     [SerializeField]
-    private string[] textCharacterNamesForSchool;
+    private string[] textCharacterNamesForPublicBath_IT;
 
-    private string[][] textCharacterNames = new string[2][];
+    [SerializeField]
+    private string[] textCharacterNamesForPublicBath_PT;
+
+    [SerializeField]
+    private string[] textCharacterNamesForPublicBath_ES;
+
+    [SerializeField]
+    private string[] textCharacterNamesForPublicBath_SE;
+
+    [SerializeField]
+    private string[] textCharacterNamesForSchool_EN;
+
+    [SerializeField]
+    private string[] textCharacterNamesForSchool_IT;
+
+    [SerializeField]
+    private string[] textCharacterNamesForSchool_PT;
+
+    [SerializeField]
+    private string[] textCharacterNamesForSchool_ES;
+
+    [SerializeField]
+    private string[] textCharacterNamesForSchool_SE;
+
+    private string[][][] textCharacterNames = new string[2][][] { new string [5][], new string[5][] };
 
     [SerializeField]
     private Text textCharacterName;
+
+    [SerializeField]
+    private Text textPlay;
+
+    [SerializeField]
+    private Text textStopRecord;
 
     [SerializeField]
     private GameObject[] imagesSelectedCharacter;
@@ -139,8 +171,17 @@ public class UIManager_GM : MonoBehaviour
     {
         indexGame = value;
 
-        textCharacterNames[0] = textCharacterNamesForPublicBath;
-        textCharacterNames[1] = textCharacterNamesForSchool;
+        textCharacterNames[0][0] = textCharacterNamesForPublicBath_EN;
+        textCharacterNames[0][1] = textCharacterNamesForPublicBath_IT;
+        textCharacterNames[0][2] = textCharacterNamesForPublicBath_PT;
+        textCharacterNames[0][3] = textCharacterNamesForPublicBath_ES;
+        textCharacterNames[0][4] = textCharacterNamesForPublicBath_SE;
+
+        textCharacterNames[1][0] = textCharacterNamesForSchool_EN;
+        textCharacterNames[1][1] = textCharacterNamesForSchool_IT;
+        textCharacterNames[1][2] = textCharacterNamesForSchool_PT;
+        textCharacterNames[1][3] = textCharacterNamesForSchool_ES;
+        textCharacterNames[1][4] = textCharacterNamesForSchool_SE;
 
         tCharacters[0] = tCharacterPublicBath;
         tCharacters[1] = tCharacterSchool;
@@ -222,7 +263,7 @@ public class UIManager_GM : MonoBehaviour
 
 
         // Change Name
-        textCharacterName.text = textCharacterNames[indexGame][index];
+        textCharacterName.text = textCharacterNames[indexGame][indexLanguage][index];
     }
 
     public void UpdateCharacter(int index, bool right)
@@ -443,7 +484,7 @@ public class UIManager_GM : MonoBehaviour
 
 
         // Change Name
-        textCharacterName.text = textCharacterNames[indexGame][index];
+        textCharacterName.text = textCharacterNames[indexGame][indexLanguage][index];
     }
 
     private void CanChangeCharacter()
@@ -723,32 +764,32 @@ public class UIManager_GM : MonoBehaviour
                         {
                             case 0:
                                 // English
-                                textError.text = "---- Reached the maximum number of Characters! ----";
+                                textError.text = "---- Reached The Maximum Number Of Characters! ----";
                                 break;
 
                             case 1:
                                 // Italian
-                                textError.text = "---- Reached the maximum number of Characters! ----";
+                                textError.text = "---- ¡Raggiunto Il Numero Massimo Di Personaggios! ----";
                                 break;
 
                             case 2:
                                 // Portuguese
-                                textError.text = "---- Atingiu o número máximo de Personagens! ----";
+                                textError.text = "---- Atingiu O Número Máximo De Personagens! ----";
                                 break;
 
                             case 3:
                                 // Spanish
-                                textError.text = "---- Reached the maximum number of Characters! ----";
+                                textError.text = "---- Alcanzó El Número Máximo De Personajes! ----";
                                 break;
 
                             case 4:
                                 // Swedish
-                                textError.text = "---- Reached the maximum number of Characters! ----";
+                                textError.text = "---- Nått Maximalt Antal Tecken! ----";
                                 break;
 
                             default:
                                 // English
-                                textError.text = "---- Reached the maximum number of Characters! ----";
+                                textError.text = "---- Reached The Maximum Number Of Characters! ----";
                                 break;
                         }
                     }
@@ -769,7 +810,6 @@ public class UIManager_GM : MonoBehaviour
 
                 case false:
                     image.SetActive(true); 
-                    image.GetComponent<Text>().text = "Player Selected";
                     break;
             }
         }
@@ -809,7 +849,7 @@ public class UIManager_GM : MonoBehaviour
 
                 case 1:
                     // Italian
-                    textError.text = "---- Select a Character! ----";
+                    textError.text = "---- Seleziona Un Personaggio! ----";
                     break;
 
                 case 2:
@@ -819,12 +859,12 @@ public class UIManager_GM : MonoBehaviour
 
                 case 3:
                     // Spanish
-                    textError.text = "---- Select a Character! ----";
+                    textError.text = "---- Seleccionar Un Personaje! ----";
                     break;
 
                 case 4:
                     // Swedish
-                    textError.text = "---- Select a Character! ----";
+                    textError.text = "---- Välj En Karaktär! ----";
                     break;
 
                 default:
@@ -839,44 +879,79 @@ public class UIManager_GM : MonoBehaviour
     {
         indexLanguage = index;
 
-        Debug.Log(indexLanguage);
-
-        index = 0;  // FOR TEST
-
         title.sprite = titleSprites[index];
 
-        /*  switch (indexLanguage)
-          {
-              case 0:
-                  // English
-                  title.text = "WHO DO YOU WANT TO BE?";
-                  break;
+       
 
-              case 1:
-                  // Italian
-                  title.text = "CHI VUOI ESSERE?";
-                  break;
+        switch (index)
+        {
+            case 0:
+                // English
+                textPlay.text = "Play";
+                textStopRecord.text = "STOP RECORDING?";
 
-              case 2:
-                  // Portuguese
-                  title.text = "QUEM QUERES SER?";
-                  break;
+                for (int i = 0; i < imagesSelectedCharacter.Length; i++)
+                {
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Player Selected";
+                }
+                break;
 
-              case 3:
-                  // Spanish
-                  title.text = "QUIEN QUIERES SER?";
-                  break;
+            case 1:
+                // Italian
+                textPlay.text = "Giocare";
+                textStopRecord.text = "INTERROMPI REGISTRAZIONE?";
 
-              case 4:
-                  // Swedish
-                  title.text = "WHO DO YOU WANT TO BE?";
-                  break;
+                for (int i = 0; i < imagesSelectedCharacter.Length; i++)
+                {
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Giocatore Selezionato";
+                }
+                break;
 
-              default:
-                  // English
-                  title.text = "WHO DO YOU WANT TO BE?";
-                  break;
-          }*/
+            case 2:
+                // Portuguese
+                textPlay.text = "Jogar";
+                textStopRecord.text = "PARAR DE GRAVAR?";
+
+                for (int i = 0; i < imagesSelectedCharacter.Length; i++)
+                {
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Jogador Selecionado";
+                    Debug.Log("HELLO:    " + imagesSelectedCharacter[i].GetComponent<Text>().text);
+                }                
+                break;
+
+            case 3:
+                // Spanish
+                textPlay.text = "Jugar";
+                textStopRecord.text = "PARA DE GRABAR?";
+
+                for (int i = 0; i < imagesSelectedCharacter.Length; i++)
+                {
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Jugador Seleccionado";
+                }
+                break;
+
+            case 4:
+                // Swedish
+                textPlay.text = "Spela";
+                textStopRecord.text = "STOPPA INSPELNINGEN?";
+
+                for (int i = 0; i < imagesSelectedCharacter.Length; i++)
+                {
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Spelare Vald";
+                }
+                break;
+
+            default:
+                // English
+                textPlay.text = "Play";
+                textStopRecord.text = "STOP RECORDING?";
+
+                for (int i = 0; i < imagesSelectedCharacter.Length; i++)
+                {
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Player Selected";
+                }
+                break;
+        }
 
     }
 

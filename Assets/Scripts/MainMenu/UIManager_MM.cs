@@ -80,6 +80,9 @@ public class UIManager_MM : MonoBehaviour
     [SerializeField]
     private Image textButtonMovies;
 
+    [SerializeField]
+    private Text textDelete;
+
 
     // Buttons VideoPlayer
     [Header("Buttons VideoPlayer")]
@@ -266,10 +269,6 @@ public class UIManager_MM : MonoBehaviour
 
     public void UpdateLanguage(int indexLanguage)
     {
-        Debug.Log(indexLanguage);
-
-        indexLanguage = 0;  // FOR TEST
-
         title.sprite = titleSprites[indexLanguage];
 
         textButtonMovies.sprite = textButtonMoviesSprites[indexLanguage];
@@ -279,6 +278,39 @@ public class UIManager_MM : MonoBehaviour
         textButtonSchool.sprite = textButtonSchoolSprites[indexLanguage];
 
         titleMovie.sprite = titleMoviesSprites[indexLanguage];
+
+        switch (indexLanguage)
+        {
+            case 0:
+                // English
+                textDelete.text = "DELETE?";
+                break;
+
+            case 1:
+                // Italian
+                textDelete.text = "ELIMINA?";
+                break;
+
+            case 2:
+                // Portuguese
+                textDelete.text = "APAGAR?";
+                break;
+
+            case 3:
+                // Spanish
+                textDelete.text = "ELIMINAR?";
+                break;
+
+            case 4:
+                // Swedish
+                textDelete.text = "RADERA?";
+                break;
+
+            default:
+                // English
+                textDelete.text = "DELETE?";
+                break;
+        }
     }
 
     public void _ReturnVideoButtonClicked()
