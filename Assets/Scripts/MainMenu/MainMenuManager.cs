@@ -76,6 +76,7 @@ public class MainMenuManager : MonoBehaviour
     public void LoadScene(int indexScene)
     {
         gameInstance.CameFromMainMenu = true;
+        Debug.Log("2");
         SceneManager.LoadScene(indexScene);
     }
 

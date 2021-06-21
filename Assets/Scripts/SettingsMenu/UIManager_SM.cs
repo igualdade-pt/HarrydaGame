@@ -91,19 +91,6 @@ public class UIManager_SM : MonoBehaviour
         books[2] = bookPT;
         books[3] = bookES;
         books[4] = bookSE;
-
-        for (int i = 0; i < books.Length; i++)
-        {
-            for (int j = 0; j < books[i].Length; j++)
-            {
-                books[i][j].SetActive(false);
-            }
-        }
-
-        for (int i = 0; i < textsInfo.Length; i++)
-        {
-            textsInfo[i].SetActive(false);
-        }
     }
 
     private void Start()
@@ -316,9 +303,24 @@ public class UIManager_SM : MonoBehaviour
     public void UpdateLanguage(int indexLanguage)
     {
         // Change Info Text
+        for (int i = 0; i < textsInfo.Length; i++)
+        {
+            textsInfo[i].SetActive(false);
+        }
+
         textsInfo[indexLanguage].SetActive(true);
 
+
         // Change Book Pages
+        for (int i = 0; i < books.Length; i++)
+        {
+            for (int j = 0; j < books[i].Length; j++)
+            {
+                books[i][j].SetActive(false);
+            }
+        }
+
+
         for (int i = 0; i < books[indexLanguage].Length; i++)
         {
             books[indexLanguage][i].SetActive(true);

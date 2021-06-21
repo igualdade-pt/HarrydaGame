@@ -48,8 +48,6 @@ public class StartMenuManager : MonoBehaviour
         uiManager = FindObjectOfType<UIManager_SM>().GetComponent<UIManager_SM>();
 
         uiManager.UpdateLanguage(indexLanguage);
-
-
     }
 
 
