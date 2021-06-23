@@ -262,7 +262,8 @@ public class UIManager_SM : MonoBehaviour
             // Play Sound
             audioManager.PlayClip(0, 0.6f);
             // ****
-            Application.OpenURL("market://details?id=" + gamesLink[index]);
+            Application.OpenURL("https://colourfulchildren.eu/");
+            //Application.OpenURL("market://details?id=" + gamesLink[index]);
         }
     }
 
