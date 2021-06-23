@@ -376,6 +376,7 @@ public class UIManager_MM : MonoBehaviour
         // ****
         var url = button.GetComponentInChildren<VideoPlayer>().url;
 
+        Debug.Log(url);
         if (File.Exists(url))
         {
             var payload = new SharePayload();
