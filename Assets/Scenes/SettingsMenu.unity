@@ -282,6 +282,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: 690d3565f82f9d2449627756e41da2d7, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: PT_BookSE
@@ -467,7 +471,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1138215901}
   m_HandleRect: {fileID: 1138215900}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1238,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &296734198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1454,6 +1458,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: c474daf963402df4c99a861ab6baae26, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: IT_BookIT
@@ -2325,6 +2333,8 @@ MonoBehaviour:
   allBooksPanel: {fileID: 1574755484}
   buttonsBooksPanel: {fileID: 407285493}
   gamePanel: {fileID: 698522396}
+  handLGuide: {fileID: 1737349025}
+  handRGuide: {fileID: 724218349}
   textsInfo:
   - {fileID: 1788467242}
   - {fileID: 216951767}
@@ -3316,7 +3326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &698522397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3506,6 +3516,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710805765}
+  m_CullTransparentMesh: 0
+--- !u!1 &724218349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 724218350}
+  - component: {fileID: 724218352}
+  - component: {fileID: 724218351}
+  m_Layer: 5
+  m_Name: HandR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &724218350
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724218349}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1574755485}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -775, y: -425}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &724218351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724218349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 01ba09868a3ac5745bdbcac72fafa0d6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &724218352
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724218349}
   m_CullTransparentMesh: 0
 --- !u!1 &734590881
 GameObject:
@@ -4340,6 +4425,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: 690d3565f82f9d2449627756e41da2d7, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: PT_BookIT
@@ -4890,6 +4979,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: c474daf963402df4c99a861ab6baae26, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: IT_BookES
@@ -5811,6 +5904,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: 690d3565f82f9d2449627756e41da2d7, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: PT_BookPT
@@ -6054,13 +6151,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 1882970272}
     m_Modifications:
     - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: bookPages.Array.size
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1373811513}
-    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
-      propertyPath: bookPages.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: ae53d411e8dfb6d4291a7554bb4885e3, type: 3}
     - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: bookPages.Array.data[1]
       value: 
@@ -6201,6 +6298,18 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: c474daf963402df4c99a861ab6baae26, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: bookPages.Array.data[36]
+      value: 
+      objectReference: {fileID: 21300000, guid: c474daf963402df4c99a861ab6baae26, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: bookPages.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ae53d411e8dfb6d4291a7554bb4885e3, type: 3}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: IT_BookEN
@@ -6208,6 +6317,30 @@ PrefabInstance:
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566086600, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566086600, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1627.0815
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566087034, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566087034, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2550
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566087562, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2550
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566087562, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2550
       objectReference: {fileID: 0}
     - target: {fileID: 3814005806566093124, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6292,6 +6425,14 @@ PrefabInstance:
     - target: {fileID: 3814005806566093124, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566171156, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814005806566171156, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1627.0815
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
@@ -6670,6 +6811,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: 690d3565f82f9d2449627756e41da2d7, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: PT_BookES
@@ -9157,6 +9302,8 @@ RectTransform:
   - {fileID: 1577279652}
   - {fileID: 1824343667}
   - {fileID: 823459985}
+  - {fileID: 724218350}
+  - {fileID: 1737349026}
   m_Father: {fileID: 296734198}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9667,6 +9814,81 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!1 &1737349025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737349026}
+  - component: {fileID: 1737349028}
+  - component: {fileID: 1737349027}
+  m_Layer: 5
+  m_Name: HandL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1737349026
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737349025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1574755485}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 775, y: -425}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1737349027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737349025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a1e04249ae03b20428570adf8aec5719, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1737349028
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737349025}
+  m_CullTransparentMesh: 0
 --- !u!1 &1785931345
 GameObject:
   m_ObjectHideFlags: 0
@@ -10425,6 +10647,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: 690d3565f82f9d2449627756e41da2d7, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: PT_BookEN
@@ -10951,6 +11177,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: c474daf963402df4c99a861ab6baae26, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: IT_BookPT
@@ -11531,6 +11761,10 @@ PrefabInstance:
       propertyPath: bookPages.Array.data[35]
       value: 
       objectReference: {fileID: 21300000, guid: c474daf963402df4c99a861ab6baae26, type: 3}
+    - target: {fileID: 3814005806544611604, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
+      propertyPath: currentPage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814005806554347768, guid: 85b5644e65b6f0a429c29931c89bf05c, type: 3}
       propertyPath: m_Name
       value: IT_BookSE

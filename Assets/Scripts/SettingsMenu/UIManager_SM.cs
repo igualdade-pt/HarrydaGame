@@ -50,6 +50,12 @@ public class UIManager_SM : MonoBehaviour
     [Header("Texts")]
     [Space]
     [SerializeField]
+    private GameObject handLGuide;
+
+    [SerializeField]
+    private GameObject handRGuide;
+
+    [SerializeField]
     private GameObject[] textsInfo;
 
     [SerializeField]
@@ -91,6 +97,9 @@ public class UIManager_SM : MonoBehaviour
         books[2] = bookPT;
         books[3] = bookES;
         books[4] = bookSE;
+
+        handLGuide.SetActive(true);
+        handRGuide.SetActive(true);
     }
 
     private void Start()
@@ -202,6 +211,8 @@ public class UIManager_SM : MonoBehaviour
             buttonsBooksPanel.SetActive(false);
             buttonsBooksPanel.SetActive(true);
             //buttonCloseBooksPanel.SetActive(true);
+            handLGuide.SetActive(true);
+            handRGuide.SetActive(true);
         }
     }
 
@@ -333,5 +344,11 @@ public class UIManager_SM : MonoBehaviour
         // Play Sound
         audioManager.PlayClip(4, 0.6f);
         // ****
+    }
+
+    public void SetGuideBook()
+    {
+        handLGuide.SetActive(false);
+        handRGuide.SetActive(false);
     }
 }
