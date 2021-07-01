@@ -757,7 +757,7 @@ public class UIManager_GM : MonoBehaviour
                     else
                     {
                         // Play Sound
-                        audioManager.PlayClip(1, 0.6f);
+                        audioManager.PlayClip(5, 0.6f);
                         // ****
                         activeImage = false;
                         switch (indexLanguage)
@@ -774,7 +774,7 @@ public class UIManager_GM : MonoBehaviour
 
                             case 2:
                                 // Portuguese
-                                textError.text = "---- Atingiu O Número Máximo De Personagens! ----";
+                                textError.text = "---- Atingiste O Número Máximo De Personagens! ----";
                                 break;
 
                             case 3:
@@ -838,7 +838,7 @@ public class UIManager_GM : MonoBehaviour
         else
         {
             // Play Sound
-            audioManager.PlayClip(1, 0.6f);
+            audioManager.PlayClip(5, 0.6f);
             // ****
             switch (indexLanguage)
             {
@@ -854,7 +854,7 @@ public class UIManager_GM : MonoBehaviour
 
                 case 2:
                     // Portuguese
-                    textError.text = "---- Selecione uma Personagem! ----";
+                    textError.text = "---- Seleciona Uma Personagem! ----";
                     break;
 
                 case 3:
@@ -914,7 +914,7 @@ public class UIManager_GM : MonoBehaviour
 
                 for (int i = 0; i < imagesSelectedCharacter.Length; i++)
                 {
-                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Jogador Selecionado";
+                    imagesSelectedCharacter[i].GetComponent<Text>().text = "Personagem Selecionada";
                     Debug.Log("HELLO:    " + imagesSelectedCharacter[i].GetComponent<Text>().text);
                 }                
                 break;
@@ -1036,7 +1036,9 @@ public class UIManager_GM : MonoBehaviour
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
         // ****
-        gameplayManager.LoadScene(indexScene, false);
+        panelLoading.SetActive(true);
+        musicManager.PlayMusicMenu();
+        gameplayManager.LoadAsyncGamePlay(indexScene, false);
     }
 
     public void _ReturnToCharactersButtonClicked()
@@ -1067,6 +1069,7 @@ public class UIManager_GM : MonoBehaviour
         // Play Sound
         audioManager.PlayClip(2, 0.6f);
         // ****
+        musicManager.PlayMusicMenu();
         musicManager.ResumeMusic();
         gameplayManager.LoadAsyncGamePlay(menuMovieSceneIndex, true);
         //gameplayManager.LoadScene(menuMovieSceneIndex, true);

@@ -345,6 +345,7 @@ public class UIManager_MM : MonoBehaviour
     {
         // Play Sound
         audioManager.PlayClip(0, 0.6f);
+        audioManager.PlayClip(6, 0.6f);
         // ****
         var url = button.GetComponentInChildren<VideoPlayer>().url;
 

@@ -12,6 +12,8 @@ public class MainMenuManager : MonoBehaviour
 
     private GameInstanceScript gameInstance;
 
+    private MusicManagerScript musicManager;
+
     [SerializeField]
     private int indexGameplayScene = 3;
 
@@ -70,19 +72,19 @@ public class MainMenuManager : MonoBehaviour
             gameInstance.IsRecorded = false;
         }   
        
-        
+        musicManager = FindObjectOfType<MusicManagerScript>().GetComponent<MusicManagerScript>();
     }
 
     public void LoadScene(int indexScene)
     {
         gameInstance.CameFromMainMenu = true;
-        Debug.Log("2");
         SceneManager.LoadScene(indexScene);
     }
 
     public void LoadAsyncGamePlay(int indexScene)
     {
         gameInstance.SceneIndex = indexScene;
+        musicManager.PlayMusicGame();
         StartCoroutine(StartLoadAsyncScene(indexGameplayScene));
     }
 
