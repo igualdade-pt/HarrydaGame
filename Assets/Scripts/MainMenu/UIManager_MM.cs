@@ -381,8 +381,8 @@ public class UIManager_MM : MonoBehaviour
         if (File.Exists(url))
         {
             var payload = new SharePayload();
-            payload.AddMedia(url);
-            payload.Commit();
+            payload.AddMedia(url)
+            .Commit();
         }
     }
 

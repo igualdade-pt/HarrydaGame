@@ -58,6 +58,32 @@ public class UIManager_SM : MonoBehaviour
     [SerializeField]
     private GameObject[] textsInfo;
 
+
+    [SerializeField]
+    private Image coverBookIT;
+
+    [SerializeField]
+    private Image coverBookPT;
+
+    [SerializeField]
+    private Image coverBookES;
+
+    [SerializeField]
+    private Image coverBookSE;
+
+
+    [SerializeField]
+    private Sprite[] coverImageIT;
+
+    [SerializeField]
+    private Sprite[] coverImagePT;
+
+    [SerializeField]
+    private Sprite[] coverImageES;
+
+    [SerializeField]
+    private Sprite[] coverImageSE;
+
     [SerializeField]
     private GameObject[] bookEN;
 
@@ -321,6 +347,13 @@ public class UIManager_SM : MonoBehaviour
         }
 
         textsInfo[indexLanguage].SetActive(true);
+
+
+        // Change Cover Book
+        coverBookIT.sprite = coverImageIT[indexLanguage];
+        coverBookPT.sprite = coverImagePT[indexLanguage];
+        coverBookES.sprite = coverImageES[indexLanguage];
+        coverBookSE.sprite = coverImageSE[indexLanguage];
 
 
         // Change Book Pages
