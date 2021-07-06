@@ -21,6 +21,9 @@ public class Player_S : MonoBehaviour
     [SerializeField]
     private GameObject specialSpriteRenderer;
 
+    [SerializeField]
+    private LayerMask layerWallMask;
+
     private bool canDoubleTap = true;
 
     private bool hasDoubleTap;
@@ -81,7 +84,11 @@ public class Player_S : MonoBehaviour
                         {
                             Vector2 mousePos = Camera.main.ScreenToWorldPoint(myTouches[i].position);
 
-                            GetComponent<Transform>().position = mousePos;
+                            RaycastHit2D hitWall = Physics2D.Linecast(ray, ray, layerWallMask);
+                            if(hitWall.collider == null)
+                            {
+                                GetComponent<Transform>().position = mousePos;
+                            }
 
                             if (myTouches[i].tapCount == 2 && canDoubleTap && hasDoubleTap)
                             {

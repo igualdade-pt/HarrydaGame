@@ -197,10 +197,10 @@ public class UIManager_MM : MonoBehaviour
                     //Android
                     /*video.source = VideoSource.Url;
                     video.url = videosPath[y];*/
-                    videoScript.RenderImageByUrl(videosPath[y], y.ToString());
+                    videoScript.RenderImageByUrl(videosPath[y], (y + 1).ToString());
 
 
-                    // TEST
+                   // TEST
                     //videoScript.RenderImageByVideoClip(videos[y]);
 
                     var buttons = button.GetComponentsInChildren<Button>(true);
