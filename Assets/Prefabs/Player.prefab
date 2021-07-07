@@ -198,6 +198,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f70a41547cbc65045b6e162923d34954, type: 3}
   spriteRenderer: {fileID: 3859903754074204777}
   specialSpriteRenderer: {fileID: 8451057646768119377}
+  speed: 4
   layerWallMask:
     serializedVersion: 2
     m_Bits: 256

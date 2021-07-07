@@ -18,8 +18,15 @@ public class Player_S : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+    private Rigidbody2D myRigid;
+
     [SerializeField]
     private GameObject specialSpriteRenderer;
+
+    private int playerNumber;
+
+    [SerializeField]
+    private float speed;
 
     [SerializeField]
     private LayerMask layerWallMask;
@@ -57,6 +64,7 @@ public class Player_S : MonoBehaviour
 
     private void Start()
     {
+        myRigid = gameObject.GetComponent<Rigidbody2D>();
         canDoubleTap = true;
         audioSource = gameObject.AddComponent<AudioSource>();
         recordManager = FindObjectOfType<RecordManager>().GetComponent<RecordManager>();
@@ -102,24 +110,63 @@ public class Player_S : MonoBehaviour
 
             case false:
                 // PC
-                if (Input.GetMouseButtonDown(0)) // MOUSE BUTTON BEGAN
+                switch (playerNumber)
                 {
-                    var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    case 0:
+                        if (Input.GetKeyDown(KeyCode.L) & canDoubleTap && hasDoubleTap)
+                        {
+                            canDoubleTap = false;
+                            DoubleTap();
 
-                    RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                    Debug.DrawLine(ray, ray, Color.red);
+                        }
+                        break;
+                    case 1:
+                        if (Input.GetKeyDown(KeyCode.C) & canDoubleTap && hasDoubleTap)
+                        {
+                            canDoubleTap = false;
+                            DoubleTap();
+                        }
+                        break;
 
-                    if (hit.collider != null)
-                    {
-                        //GameObject pieceSelected = null;
+                    default:
 
-
-                    }
+                        break;
                 }
 
                 break;
         }
     
+    }
+
+    private void FixedUpdate()
+    {
+            if (!mobile)
+            {
+                //PC
+                switch (playerNumber)
+                {
+                    case 0:
+                        float horizontalMove1 = Input.GetAxisRaw("Horizontal1");
+                        float VerticalMove1 = Input.GetAxisRaw("Vertical1");
+
+
+                        myRigid.velocity = new Vector2(horizontalMove1 * speed, VerticalMove1 * speed);
+
+                        break;
+
+                    case 1:
+                        float horizontalMove2 = Input.GetAxisRaw("Horizontal2");
+                        float VerticalMove2 = Input.GetAxisRaw("Vertical2");
+
+                       
+                        myRigid.velocity = new Vector2(horizontalMove2 * speed, VerticalMove2 * speed);
+                       
+                        break;
+
+                    default:
+                        break;
+                }
+            }
     }
 
     private void DoubleTap()
@@ -171,5 +218,10 @@ public class Player_S : MonoBehaviour
     {
         audioSource.PlayOneShot(clip, 0.6f);
         recordManager.PlaySFXOnRecord(clip);    
+    }
+
+    public void NumberPlayer(int number)
+    {
+        playerNumber = number;
     }
 }

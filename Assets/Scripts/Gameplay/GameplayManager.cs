@@ -106,6 +106,8 @@ public class GameplayManager : MonoBehaviour
             GameObject player = Instantiate(playerPrefab,new Vector3(((charactersSelected.Count / 2) - i - correctX) * 3f, 0 ,0), Quaternion.identity, playerHolder.transform);
 
             player.GetComponent<Player_S>().UpdadeCharacter(charactersSelected[i]);
+
+            player.GetComponent<Player_S>().NumberPlayer(i);
         }
 
         charactersSelected.Clear();
