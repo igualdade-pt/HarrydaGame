@@ -41,17 +41,22 @@ public class RecordManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.bypassEffects = 
         audioSource.bypassListenerEffects = false;
+#if !UNITY_WEBGL
         audioSource.clip = Microphone.Start(null, true, 10, AudioSettings.outputSampleRate);
         yield return new WaitUntil(() => Microphone.GetPosition(null) > 0);        
+#endif
+        yield return null;
         audioSource.Play();
     }
 
 
     private void OnDestroy()
     {
+        #if !UNITY_WEBGL
         // Stop microphone
         audioSource.Stop();
         Microphone.End(null);
+        #endif
     }
 
     public void StartRecording()

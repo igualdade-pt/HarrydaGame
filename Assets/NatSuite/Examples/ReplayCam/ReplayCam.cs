@@ -30,15 +30,18 @@ namespace NatSuite.Examples {
             microphoneSource.loop = true;
             microphoneSource.bypassEffects =
             microphoneSource.bypassListenerEffects = false;
+#if !UNITY_WEBGL
             microphoneSource.clip = Microphone.Start(null, true, 10, AudioSettings.outputSampleRate);
             yield return new WaitUntil(() => Microphone.GetPosition(null) > 0);
+#endif
+            yield return null;
             microphoneSource.Play();
         }
 
         private void OnDestroy () {
             // Stop microphone
             microphoneSource.Stop();
-            Microphone.End(null);
+            //Microphone.End(null);
         }
 
         public void StartRecording () {
@@ -64,7 +67,9 @@ namespace NatSuite.Examples {
             var path = await recorder.FinishWriting();
             // Playback recording
             Debug.Log($"Saved recording to: {path}");
+            #if !UNITY_WEBGL
             Handheld.PlayFullScreenMovie($"file://{path}");
+#endif
         }
     }
 }

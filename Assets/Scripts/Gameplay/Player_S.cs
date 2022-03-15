@@ -9,8 +9,8 @@ public class Player_S : MonoBehaviour
     [SerializeField]
     private bool gameplayTest = false;
 
-    [SerializeField]
-    private bool mobile = false;
+    //[SerializeField]
+    //private bool mobile = false;
 
     [SerializeField]
     private Sprite[] sprites;
@@ -73,44 +73,43 @@ public class Player_S : MonoBehaviour
 
     private void Update()
     {
-        switch (mobile)
+#if !UNITY_WEBGL
+        // MOBILE
+        if (Input.touchCount > 0)
         {
-            case true:
-                // MOBILE
-                if (Input.touchCount > 0)
+
+            Touch[] myTouches = Input.touches;
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                var ray = Camera.main.ScreenToWorldPoint(myTouches[i].position);
+
+                RaycastHit2D hit = Physics2D.Linecast(ray, ray);
+                Debug.DrawLine(ray, ray, Color.red);
+
+                if (hit.collider == gameObject.GetComponent<Collider2D>())
                 {
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(myTouches[i].position);
 
-                    Touch[] myTouches = Input.touches;
-                    for (int i = 0; i < Input.touchCount; i++)
+                    RaycastHit2D hitWall = Physics2D.Linecast(ray, ray, layerWallMask);
+                    if (hitWall.collider == null)
                     {
-                        var ray = Camera.main.ScreenToWorldPoint(myTouches[i].position);
+                        GetComponent<Transform>().position = mousePos;
+                    }
 
-                        RaycastHit2D hit = Physics2D.Linecast(ray, ray);
-                        Debug.DrawLine(ray, ray, Color.red);
-
-                        if (hit.collider == gameObject.GetComponent<Collider2D>())
-                        {
-                            Vector2 mousePos = Camera.main.ScreenToWorldPoint(myTouches[i].position);
-
-                            RaycastHit2D hitWall = Physics2D.Linecast(ray, ray, layerWallMask);
-                            if(hitWall.collider == null)
-                            {
-                                GetComponent<Transform>().position = mousePos;
-                            }
-
-                            if (myTouches[i].tapCount == 2 && canDoubleTap && hasDoubleTap)
-                            {
-                                canDoubleTap = false;
-                                DoubleTap();
-                            }
-                        }
+                    if (myTouches[i].tapCount == 2 && canDoubleTap && hasDoubleTap)
+                    {
+                        canDoubleTap = false;
+                        DoubleTap();
                     }
                 }
-                break;
+            }
+        }
+    
+#endif
 
-            case false:
-                // PC
-                switch (playerNumber)
+#if UNITY_WEBGL
+            // PC
+            switch (playerNumber)
                 {
                     case 0:
                         if (Input.GetKeyDown(KeyCode.L) & canDoubleTap && hasDoubleTap)
@@ -131,42 +130,39 @@ public class Player_S : MonoBehaviour
                     default:
 
                         break;
-                }
-
-                break;
-        }
+                }                    
+#endif
     
     }
 
     private void FixedUpdate()
     {
-            if (!mobile)
-            {
-                //PC
-                switch (playerNumber)
-                {
-                    case 0:
-                        float horizontalMove1 = Input.GetAxisRaw("Horizontal1");
-                        float VerticalMove1 = Input.GetAxisRaw("Vertical1");
+#if UNITY_WEBGL
+        //PC
+        switch (playerNumber)
+        {
+            case 0:
+                float horizontalMove1 = Input.GetAxisRaw("Horizontal1");
+                float VerticalMove1 = Input.GetAxisRaw("Vertical1");
 
 
-                        myRigid.velocity = new Vector2(horizontalMove1 * speed, VerticalMove1 * speed);
+                myRigid.velocity = new Vector2(horizontalMove1 * speed, VerticalMove1 * speed);
 
-                        break;
+                break;
 
-                    case 1:
-                        float horizontalMove2 = Input.GetAxisRaw("Horizontal2");
-                        float VerticalMove2 = Input.GetAxisRaw("Vertical2");
+            case 1:
+                float horizontalMove2 = Input.GetAxisRaw("Horizontal2");
+                float VerticalMove2 = Input.GetAxisRaw("Vertical2");
 
-                       
-                        myRigid.velocity = new Vector2(horizontalMove2 * speed, VerticalMove2 * speed);
-                       
-                        break;
 
-                    default:
-                        break;
-                }
-            }
+                myRigid.velocity = new Vector2(horizontalMove2 * speed, VerticalMove2 * speed);
+
+                break;
+
+            default:
+                break;
+        }
+#endif
     }
 
     private void DoubleTap()

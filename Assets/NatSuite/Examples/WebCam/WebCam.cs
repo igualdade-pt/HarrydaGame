@@ -40,12 +40,14 @@ namespace NatSuite.Examples {
             var path = await recorder.FinishWriting();
             // Playback recording
             Debug.Log($"Saved recording to: {path}");
+            #if !UNITY_WEBGL
             Handheld.PlayFullScreenMovie($"file://{path}");
+#endif
         }
-        #endregion
+#endregion
 
 
-        #region --Operations--
+#region --Operations--
 
         IEnumerator Start () {
             // Request camera permission
@@ -68,6 +70,6 @@ namespace NatSuite.Examples {
                 recorder.CommitFrame(pixelBuffer, clock.timestamp);
             }
         }
-        #endregion
+#endregion
     }
 }
